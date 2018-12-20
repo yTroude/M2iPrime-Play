@@ -14,3 +14,7 @@ server.pid
 *.eml
 /dist/
 .cache
+*.iml
+*.ipr
+*.iws
+conf/db.conf
