@@ -2,8 +2,23 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+##########
+# Public #
+##########
+
 # Home page
-GET     /                                       Application.index
+GET     /                                       publ.Publ.index
+
+# Inscription
+
+GET     /inscription                            publ.Inscription.formulaireInscription
+POST    /inscription/submit                     publ.Inscription.inscription
+
+# Connexion
+
+GET     /connexion                              publ.Publ.formulaireConnexion
+
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
@@ -11,5 +26,7 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
-# Catch all
-*       /{controller}/{action}                  {controller}.{action}
+
+
+# Catch all (Ignored)
+# *       /{controller}/{action}                  {controller}.{action}
