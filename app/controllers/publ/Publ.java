@@ -14,8 +14,4 @@ public class Publ extends TrackerController {
         render();
     }
 
-    public static void formulaireConnexion(){
-        render();
-    }
-
 }
