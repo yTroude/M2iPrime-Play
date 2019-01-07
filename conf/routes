@@ -16,6 +16,8 @@ GET     /                                       publ.Publ.index
 
 GET     /inscription                            publ.Inscription.formulaireInscription
 POST    /inscription/submit                     publ.Inscription.inscription
+GET     /inscription/confirm/{utilisateurUuid}/{validationTokenUuid}             publ.Inscription.confirmerInscription
+GET     /inscription/{utilisateurUuid}/validTokenNotFound                      publ.Inscription.validTokenNotFound
 
 ######################
 # Authentified users #

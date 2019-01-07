@@ -7,18 +7,19 @@
     <form method="post" action="@{publ.Inscription.inscription()}">
         <div class="form-group">
             <label for="inputEmail">Email : </label>
-            <input class="form-control" type="email" id="inputEmail" placeholder="Votre adresse email..." name="utilisateurDto.email">
-            <small class="form-text text-muted"></small>
+            <input class="form-control" type="email" id="inputEmail" placeholder="Votre adresse email..." name="inscriptionDto.email">
+            <small class="form-text text-muted error">#{error 'inscriptionDto.email'/}#{if flash.contains("UtilisateurExists")}Cet email est déjà utilisé.#{/if}</small>
+
         </div>
         <div class="form-group">
             <label for="inputDateNaissance">Date de naissance : </label>
-            <input class="form-control" type="date" id="inputDateNaissance" name="utilisateurDto.dateNaissance">
-            <small class="form-text text-muted"></small>
+            <input class="form-control" type="date" id="inputDateNaissance" name="inscriptionDto.dateNaissance">
+            <small class="form-text text-muted">#{error 'inscriptionDto.dateNaissance'/}#{if flash.contains("UtilisateurTropJeune")}Vous devez avoir plus de 16 ans pour vous inscrire#{/if}</small>
         </div>
         <div class="form-group">
             <label for="inputPassword">Mot de passe : </label>
-            <input type="password" class="form-control" id="inputPassword" placeholder="*****" name="utilisateurDto.password">
-            <small class="form-text text-muted"></small>
+            <input type="password" class="form-control" id="inputPassword" placeholder="*****" name="inscriptionDto.password">
+            <small class="form-text text-muted">#{error 'inscriptionDto.password'/}</small>
         </div>
         <button type="submit" class="btn btn-primary">Inscription</button>
     </form>
