@@ -18,7 +18,11 @@ POST    /inscription/submit                     publ.Inscription.inscription
 
 GET     /connexion                              publ.Publ.formulaireConnexion
 
-
+#Admin
+GET     /admin                                  admin.Admin.index
+GET     /admin/videos/nouveau                   admin.VideoController.uploadVideo
+POST    /admin/videos/nouveau                   admin.VideoController.saveUploadedVideo
+GET     /admin/video
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

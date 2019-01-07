@@ -1,0 +1,16 @@
+#{extends 'main.html' /}
+#{set title:'Videos' /}
+
+${connectedUser.prenom} ${connectedUser.nom}
+
+#{ifErrors}
+<h1>Oops…</h1>
+#{/ifErrors}
+
+<a href="@{admin.VideoController.videos()}">Retour</a>
+
+<form action="@{admin.VideoController.saveUploadedVideo()}" method="post">
+    <p>Titre <input type="text" name="video.nom" value="${flash.get('video.nom')}"><span class="error">#{error 'video.nom' /}</span></p>
+    <p>Description <input type="text" name="video.description" value="${flash.get('video.description')}"><span class="error">#{error 'video.description' /}</span></p>
+    <input type="submit" value="Créer">
+</form>

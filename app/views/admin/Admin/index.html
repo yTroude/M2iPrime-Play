@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+${connectedUser.prenom} ${connectedUser.nom}
+
+<ul>
+    <li><a href="@{Secure.logout()}">Déconnexion</a></li>
+    #{if connectedUser.role.equals(models.EUtilisateurRole.ADMIN)}
+    <li><a href="@{admin.VideoController.videos()}">Videos</a></li>
+    #{/if}
+</ul>

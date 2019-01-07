@@ -1,0 +1,26 @@
+#{extends 'main.html' /}
+#{set title:'Videos' /}
+
+${connectedUser.prenom} ${connectedUser.nom}
+
+<a href="@{admin.Admin.index()}">Retour</a>
+
+<a href="@{admin.VideoController.uploadVideo()}">Nouveau Video</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        #{list videos, as:'video'}
+        <tr>
+            <td>${video.nom}</td>
+            <td>${video.description}</td>
+            <td><a href="@{admin.VideoController.deleteVideo(video.uuid)}">Supprimer</a> </td>
+        </tr>
+        #{/list}
+    </tbody>
+</table>
