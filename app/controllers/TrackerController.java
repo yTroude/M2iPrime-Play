@@ -17,6 +17,10 @@ public class TrackerController extends Controller {
             Logger.debug("params : %s = %s", entry.getKey(), entry.getValue());
         }
         Logger.info("-----");
+        if (Security.isConnected()) {
+            renderArgs.put("connectedUser", Security.connectedUser());
+        }
+        Logger.info("-----");
     }
 
     @After

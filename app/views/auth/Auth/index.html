@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+#{set title:'Welcome you authenticated people' /}
+
+<div class="col">
+    <h1>M2iPrime</h1>
+    <h3>Connexion réussie : Welcome ${connectedUser.email} !</h3>
+    <a href="@{Secure.logout()}">Déconnexion</a>
+    <h4><a href="@{publ.Publ.index()}">Retour à l'accueil</a></h4>
+</div>
