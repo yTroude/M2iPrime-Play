@@ -8,7 +8,7 @@
         <div class="form-group">
             <label for="inputEmail">Email : </label>
             <input class="form-control" type="email" id="inputEmail" placeholder="Votre adresse email..." name="inscriptionDto.email">
-            <small class="form-text text-muted error">#{error 'inscriptionDto.email'/}#{if flash.contains("UtilisateurExists")}Cet email est déjà utilisé.#{/if}</small>
+            <small class="form-text text-muted error">#{error 'inscriptionDto.email'/}#{if flash.contains("UtilisateurExiste")}Cet email est déjà utilisé.#{/if}</small>
 
         </div>
         <div class="form-group">

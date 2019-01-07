@@ -47,7 +47,6 @@ public class UtilisateursService {
 
         //Envoi mail
         Mails.confirmerInscription(utilisateur);
-
     }
 
     public static Utilisateur getByEmailAndPassword(String email, String password) {
@@ -60,7 +59,13 @@ public class UtilisateursService {
         return Utilisateur.find("email = ?1", email).first();
     }
 
+    public static Utilisateur getByUuid(String uuid){
+        Logger.debug("%s getByUuid : [%s]", LOG_PREFIX, uuid);
+        return Utilisateur.findById(uuid);
+    }
+
     public static void confirmerUtilisateur(String utilisateurUuid, String validationTokenUuid) throws BadUtilisateurException, BadValidationTokenException {
+        Logger.debug("%s confirmerUtilisateur : [%s] [%s]", LOG_PREFIX, utilisateurUuid, validationTokenUuid);
         Utilisateur utilisateur = Utilisateur.find("uuid = ?1", utilisateurUuid).first();
         if (utilisateur == null) {
             throw new BadUtilisateurException();
@@ -78,7 +83,7 @@ public class UtilisateursService {
         }
     }
 
-    public static void regenValidationToken(){
+    public static void resentEmailForValidationToken(){
 
     }
 }

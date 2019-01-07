@@ -5,7 +5,9 @@ import errors.BadUtilisateurException;
 import errors.BadValidationTokenException;
 import errors.UtilisateurExisteException;
 import errors.UtilisateurTropJeuneException;
+import models.Utilisateur;
 import models.dto.InscriptionDto;
+import notifiers.Mails;
 import play.data.validation.Valid;
 import services.UtilisateursService;
 
@@ -25,7 +27,7 @@ public class Inscription extends TrackerController {
             UtilisateursService.creerUtilisateur(inscriptionDto);
         } catch (UtilisateurExisteException e) {
             params.flash();
-            flash.put("UtilisateurExists","true");
+            flash.put("UtilisateurExiste","true");
             formulaireInscription();
         } catch (UtilisateurTropJeuneException e) {
             params.flash();
@@ -39,19 +41,22 @@ public class Inscription extends TrackerController {
         //TODO gestion d'exception
         try {
             UtilisateursService.confirmerUtilisateur(utilisateurUuid, validationTokenUuid);
-            params.put("status","OK");
+            flash.put("status","OK");
         } catch (BadUtilisateurException e) {
-            params.put("Sssstatus","BadUtilisateur");
+            flash.put("status","BadUtilisateur");
 //            e.printStackTrace();
         } catch (BadValidationTokenException e) {
-            params.put("status","BadValidationToken");
-            e.printStackTrace();
+            Utilisateur utilisateur = UtilisateursService.getByUuid(utilisateurUuid);
+            flash.put("utilisateurEmail", utilisateur.email);
+            flash.put("status","BadValidationToken");
+//            e.printStackTrace();
         }
         render();
     }
 
-    public static void validTokenNotFound(){
-        render();
+    public static void resentEmailForValidationToken(String email){
+        Utilisateur utilisateur = UtilisateursService.getByEmail(email);
+        Mails.confirmerInscription(utilisateur);
     }
 
 }
