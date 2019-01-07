@@ -30,7 +30,7 @@ GET     /welcome                                auth.Auth.index
 GET     /admin                                  admin.Admin.index
 GET     /admin/videos/nouveau                   admin.VideoController.uploadVideo
 POST    /admin/videos/nouveau                   admin.VideoController.saveUploadedVideo
-GET     /admin/video
+GET     /admin/videos{uuid}/delete              admin.VideoController.deleteVideo
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

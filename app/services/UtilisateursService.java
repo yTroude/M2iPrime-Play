@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+import static models.EUtilisateurRole.CLIENT;
+
 public class UtilisateursService {
 
     public static final String LOG_PREFIX = "UtilisateursService | ";
@@ -36,6 +38,7 @@ public class UtilisateursService {
         utilisateur.email = inscriptionDto.email;
         utilisateur.password = BCrypt.hashpw(inscriptionDto.password, BCrypt.gensalt());
         utilisateur.valid = false;
+        utilisateur.role = CLIENT;
 
         //Token validation
         ValidationToken validationToken = new ValidationToken();

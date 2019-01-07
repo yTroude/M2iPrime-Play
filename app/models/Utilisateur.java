@@ -2,10 +2,7 @@ package models;
 
 import util.UUIDModel;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -14,6 +11,8 @@ public class Utilisateur extends UUIDModel {
     public String email;
     public String nom;
     public String prenom;
+    @Enumerated(EnumType.STRING)
+    public EUtilisateurRole role;
     public Date dateNaissance;
     @OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
     public ValidationToken validationToken;

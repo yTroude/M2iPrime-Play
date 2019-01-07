@@ -1,14 +1,19 @@
 package controllers.admin;
 
+import controllers.Check;
+import controllers.Secure;
 import controllers.TrackerController;
 import models.Video;
 import play.Logger;
 import play.data.validation.Valid;
+import play.mvc.With;
 import services.VideoService;
 
 import java.util.List;
 import java.util.Map;
 
+@With (Secure.class)
+@Check("ADMIN")
 public class VideoController extends TrackerController {
 
     public static void videos() {
