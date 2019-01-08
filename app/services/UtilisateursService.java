@@ -65,11 +65,14 @@ public class UtilisateursService {
         return Utilisateur.findById(uuid);
     }
 
-    public static void confirmerUtilisateur(String utilisateurUuid, String validationTokenUuid) throws BadUtilisateurException, BadValidationTokenException {
+    public static void confirmerUtilisateur(String utilisateurUuid, String validationTokenUuid) throws BadUtilisateurException, BadValidationTokenException, AccountAlreadyActivated {
         Logger.debug("%s confirmerUtilisateur : [%s] [%s]", LOG_PREFIX, utilisateurUuid, validationTokenUuid);
         Utilisateur utilisateur = Utilisateur.find("uuid = ?1", utilisateurUuid).first();
         if (utilisateur == null) {
             throw new BadUtilisateurException();
+        }
+        if (utilisateur.valid == true){
+            throw new AccountAlreadyActivated();
         }
         ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
         LocalDate ld = LocalDate.now().minusDays(1);

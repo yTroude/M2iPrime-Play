@@ -1,10 +1,7 @@
 package controllers.publ;
 
 import controllers.TrackerController;
-import errors.BadUtilisateurException;
-import errors.BadValidationTokenException;
-import errors.UtilisateurExisteException;
-import errors.UtilisateurTropJeuneException;
+import errors.*;
 import models.Utilisateur;
 import models.dto.InscriptionDto;
 import play.data.validation.Valid;
@@ -42,12 +39,12 @@ public class Inscription extends TrackerController {
             flash.put("status","OK");
         } catch (BadUtilisateurException e) {
             flash.put("status","BadUtilisateur");
-//            e.printStackTrace();
         } catch (BadValidationTokenException e) {
             Utilisateur utilisateur = UtilisateursService.getByUuid(utilisateurUuid);
             flash.put("utilisateurEmail", utilisateur.email);
             flash.put("status","BadValidationToken");
-//            e.printStackTrace();
+        } catch (AccountAlreadyActivated e) {
+            flash.put("status", "AccountAlreadyActivated");
         }
         render();
     }
