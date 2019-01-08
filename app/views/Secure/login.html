@@ -1,9 +1,10 @@
 #{extends 'main.html'/}
 #{set title='Connexion'/}
 
-<div class="col">
-    <h1>M2iPrime</h1>
-    <h2>Connexion</h2>
+<div class="carre">
+    *{<h1 class="titre" >M2iPrime</h1>}*
+    <p class="logo"><img style="height: 100px" src="@{'/public/images/logo.png'}" alt="Photo de M2iPrime"></p>
+    <h2 class="titre">Connexion</h2>
 
 *{Champs : mail password }*
     #{form @authenticate()}
@@ -20,20 +21,20 @@
         #{/if}
 
         <p id="username-field">
-            <label for="username">&{'secure.username'}</label>
-            <input type="text" name="username" id="username" value="${flash.username}" />
+            <label class="ask" for="username">Email</label>
+            <input type="email" name="username" id="username" value="${flash.username}" required />
         </p>
         <p id="password-field">
-            <label for="password">&{'secure.password'}</label>
-            <input type="password" name="password" id="password" value="" />
+            <label class="ask" for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" value="" required />
         </p>
-        <p id="remember-field">
-            <input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
-            <label for="remember">&{'secure.remember'}</label>
+        <p id="remember-field" >
+            <input class="ask" type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+            <label for="remember">Se souvenir de moi</label>
         </p>
-        <p id="signin-field">
-            <input type="submit" id="signin" value="&{'secure.signin'}" />
+        <p id="signin-field" class="bout">
+            <input type="submit" id="signin" value="Se connecter" />
         </p>
     #{/form}
-    <h4><a href="@{publ.Publ.index()}">Retour à l'accueil</a></h4>
+    <p class="liens"><a href="@{publ.Inscription.formulaireInscription()}">Inscription</a></p>
 </div>

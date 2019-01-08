@@ -10,7 +10,7 @@
 ##########
 
 # Home page
-GET     /                                       publ.Publ.index
+# GET     /                                       publ.Publ.index
 
 # Inscription
 
@@ -25,7 +25,7 @@ POST    /inscription/resentEmail                publ.Inscription.renvoiEmailActi
 ######################
 
 # Welcome auth users page
-GET     /welcome                                auth.Auth.index
+GET     /                                auth.Auth.index
 
 
 
