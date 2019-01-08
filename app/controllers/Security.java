@@ -35,7 +35,7 @@ public class Security extends Secure.Security {
 
     static void onAuthenticated() { Auth.index(); }
 
-    static void onDisconnected() { Publ.index(); }
+    static void onDisconnected() { Auth.index(); }
 
     public static Utilisateur connectedUser() {
         String username = connected();

@@ -9,7 +9,7 @@
         <h2 class="titre">INSCRIPTION</h2>
         <label class="ask" for="inputEmail">Adresse Email</label>
         <input id="inputEmail" name="inscriptionDto.email" value="${flash['inscriptionDto.email']}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Ton adresse e-mail ..." required>
-        <small class="form-text text-muted error">#{error 'inscriptionDto.email'/}#{if flash.contains("UtilisateurExists")}Cet email est déjà utilisé.#{/if}</small>
+        <small class="form-text text-muted error">#{error 'inscriptionDto.email'/}#{if flash.contains("UtilisateurExiste")}Cet email est déjà utilisé.#{/if}</small>
         <label class="ask" for="inputEmails">Confirmation d'adresse email</label>
         <input id="inputEmails" type="email" placeholder="Encore, juste pour être sûr" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
 

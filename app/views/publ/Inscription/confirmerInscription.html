@@ -1,12 +1,13 @@
 #{extends 'main.html'/}
 #{set title='Confirmation Inscription'/}
 
+<div class="carre"
 #{if flash.get('status').equals('OK')}
 <h1>Félicitations, votre compte est maintenant activé !</h1>
 <h4><a href="@{auth.Auth.index()}">Connexion</a></h4></br>
 #{/if}
 
-*{TODO passer email saisi en formulaire en param}*
+
 #{if flash.get('status').equals('BadUtilisateur')}
     <h1>Votre demande d'inscription n'a pas pu être prise en compte</h1>
     <p>Si vous avez déjà rempli le formulaire d'inscription, veuillez saisir votre email</p>
@@ -27,4 +28,5 @@
 </p>
 #{/if}
 
-<h4><a href="@{publ.Publ.index()}">Retour à l'accueil</a></h4>
+
+</div>
