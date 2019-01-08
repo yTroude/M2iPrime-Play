@@ -10,7 +10,7 @@
 ##########
 
 # Home page
-GET     /                                       publ.Publ.index
+# GET     /                                       publ.Publ.index
 
 # Inscription
 
@@ -24,7 +24,7 @@ GET     /inscription/{utilisateurUuid}/validTokenNotFound                      p
 ######################
 
 # Welcome auth users page
-GET     /welcome                                auth.Auth.index
+GET     /                                auth.Auth.index
 
 
 

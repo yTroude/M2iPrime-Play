@@ -1,16 +1,8 @@
 
-  /*let em = document.getElementById("emaile").value;
-   let ems = document.getElementById("emails").value;
-   let mdp = document.getElementById("motdepasse").value;
-   let mdps = document.getElementById("motdepasses").value;
-   let bd = document.getElementById("birthdate").value;*/
-
 
   //Vérification de toutes les entrées
   let elms = document.querySelectorAll("form.carre > input"), i;
   for (i = 0; i < elms.length; ++i) {
-      //elms[i].style.color = "green";
-
       elms[i].onkeyup = function (event) {
           let em = document.getElementById("inputEmail").value;
           let ems = document.getElementById("inputEmails").value;
@@ -26,33 +18,51 @@
       };
   }
 
+  document.querySelector("#inputEmails").onchange = function (event) {
+      let em = document.getElementById("inputEmail").value;
+      let ems = document.getElementById("inputEmails").value;
+      let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (document.getElementById("inputEmail").value.match(mailformat) && document.getElementById("inputEmails").value.match(mailformat) && em !== ems) {
+          alert("pas le même email");
+      }
+  }
+
+  document.querySelector("#inputPasswords").onchange = function (event) {
+      let mdp = document.getElementById("inputPassword").value;
+      let mdps = document.getElementById("inputPasswords").value;
+      if (mdp !== mdps) {
+          alert("pas le même mot de passe");
+      }
+  }
 
 window.onload=function() {
-    //let emtest = "mat.menn@mca-benelux.org";
+
 
 
     bouton.onclick = function (event) {
-        checkEmail();
-        checkAge();
-        //Geson();
+
+        if (!checkEmail()) {
+            document.getElementById("used").style.visibility = 'visible';
+            return false;
+        } else if (checkMemeEmail()) {
+            alert("pas le même email");
+            return false;
+        } else if (checkMemeMdp()) {
+            alert("pas le même mot de passe");
+            return false;
+        } else if (!checkAge()) {
+            document.getElementById("seizeans").style.visibility = 'visible';
+            return false;
+        }
+
+
     }
 
     function checkEmail() {
         let emtest = 'mat.menn@mca-benelux.org';
         let em = document.getElementById("inputEmail").value;
-        /*let ems = document.getElementById("emails").value;
-        if (em !== ems) {
-            alert("pas le même email");
-        }*/
-        if (em === emtest) {
-            alert("déjà utilisé");
-            document.getElementById("used").style.visibility = "visible";
+        return (em == emtest) ? false : true;
 
-        }
-        else {
-            document.getElementById("used").style.visibility = "hidden";
-
-        }
     }
 
     function checkAge(dateString) {
@@ -64,40 +74,21 @@ window.onload=function() {
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-        if (age < 16) {
-            alert("tu es trop jeune");
-            document.getElementById("seizeans").style.visibility = "visible";
-
-        } else {
-            document.getElementById("seizeans").style.visibility = "hidden";
-
-            document.getElementById("myForm").submit();
-
-        }
+        return (age < 16) ? false : true;
     }
+    function checkMemeEmail() {
+        let em = document.getElementById("inputEmail").value;
+        let ems = document.getElementById("inputEmails").value;
+        return (em == ems) ? false : true;
 
-//}
-
-    document.querySelector("#inputEmails").onchange = function (event) {
-        let em = document.getElementById("emaile").value;
-        let ems = document.getElementById("emails").value;
-        let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (document.getElementById("inputEmail").value.match(mailformat) && document.getElementById("inputEmails").value.match(mailformat) && em !== ems) {
-            alert("pas le même email");
-        }
     }
-
-    document.querySelector("#inputPasswords").onchange = function (event) {
+    function checkMemeMdp() {
         let mdp = document.getElementById("inputPassword").value;
         let mdps = document.getElementById("inputPasswords").value;
-        if (mdp !== mdps) {
-            alert("pas le même mot de passe");
-        }
-    }
+        return (mdp == mdps) ? false : true;
 
+    }
 
 
 }
-//document.getElementById("bouton").disabled = false;
-// document.querySelectorAll().onchange= function (event){
-// };
+

@@ -1,37 +1,39 @@
+
 #{extends 'main.html'/}
 #{set title='Inscription'/}
-<div class="col">
-    <h1>M2iPrime</h1>
+
 
 *{Champs : mail password age }*
 
     <form id="myForm" class="carre" action="@{publ.Inscription.inscription()}" method="post">
-        <h2 class="titre">INSCRIPTION</h2>
         <p class="logo"><img style="height: 100px" src="@{'/public/images/logo.png'}" alt="Photo de M2iPrime"></p>
-        <p class="ask">Adresse Email</p>
+        <h2 class="titre">INSCRIPTION</h2>
+        <label class="ask" for="inputEmail">Adresse Email</label>
         <input id="inputEmail" name="inscriptionDto.email" value="${flash['inscriptionDto.email']}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Ton adresse e-mail ..." required>
         <small class="form-text text-muted error">#{error 'inscriptionDto.email'/}#{if flash.contains("UtilisateurExists")}Cet email est déjà utilisé.#{/if}</small>
-        <p class="ask">Confirmation d'adresse email</p>
+        <label class="ask" for="inputEmails">Confirmation d'adresse email</label>
         <input id="inputEmails" type="email" placeholder="Encore, juste pour être sûr" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
 
-        <p class="ask">Mot de passe</p>
+
+        <label class="ask" for="inputPassword">Mot de passe</label>
         <input id="inputPassword" name="inscriptionDto.password" type="password" placeholder="Ton mot de passe avec 3 caractères minimum ..." minlength="3" maxlength="255" required>
         <small class="form-text text-muted">#{error 'inscriptionDto.password'/}</small>
-        <p class="ask">Confirmation de mot de passe</p>
+        <label class="ask" for="inputPasswords">Confirmation de mot de passe</label>
         <input id="inputPasswords" type="password" placeholder="Encore, juste pour être sûr" minlength="3" maxlength="255" required>
 
-        <p class="ask">Date de naissance</p>
+
+        <label for="inputDateNaissance">Date de naissance : </label><br/>
         <input id="inputDateNaissance" name="inscriptionDto.dateNaissance" value="${flash['inscriptionDto.dateNaissance']}" type="Date" placeholder="Ton anniversaire" required>
         <small class="form-text text-muted">#{error 'inscriptionDto.dateNaissance'/}#{if flash.contains("UtilisateurTropJeune")}Vous devez avoir plus de 16 ans pour vous inscrire#{/if}</small>
 
         <p id="seizeans" class="ask appear">Veuillez demander à une personne de + de 16 ans</p>
         <p id="used" class="appear">Email déjà utilisé</p>
-        <p class="bout"><input id="bouton" type="button" value="not OK!"  /></p>
+        <p class="bout"><input id="bouton" type="submit" value="not OK!"  /></p>
 
 
 
         <p class="liens">
-            <a id="lien" class="ask" href="@{publ.Publ.index()}">lien vers connexion</a></p>
+            <a id="lien" class="ask" href="@{auth.Auth.index()}">lien vers connexion</a></p>
 
     </form>
 
