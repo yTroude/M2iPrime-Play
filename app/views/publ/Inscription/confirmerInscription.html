@@ -10,7 +10,7 @@
 #{if flash.get('status').equals('BadUtilisateur')}
     <h1>Votre demande d'inscription n'a pas pu être prise en compte</h1>
     <p>Si vous avez déjà rempli le formulaire d'inscription, veuillez saisir votre email</p>
-    <form method="post" action="@{publ.Inscription.resentEmailForValidationToken()}">
+    <form method="post" action="@{publ.Inscription.renvoiEmailActivationDeCompte()}">
         <div class="form-group">
             <label for="inputEmail">Email : </label>
             <input class="form-control" type="email" id="inputEmail" placeholder="Votre adresse email..." name="email">
@@ -23,7 +23,7 @@
 #{if flash.get('status').equals('BadValidationToken')}
 <h1>Votre demande d'inscription n'a pas pu être prise en compte</h1>
 <p>Le lien contenu dans le mail que vous avez reçu a probablement expiré. Chaque lien a une durée de validité de 24h.</br>
-    <a href="@{publ.Inscription.resentEmailForValidationToken(flash.get('utilisateurEmail'))}">Renvoyer un mail de validation</a>
+    <a href="@{publ.Inscription.renvoiEmailActivationDeCompte(flash.get('utilisateurEmail'))}">Renvoyer un mail de validation</a>
 </p>
 #{/if}
 

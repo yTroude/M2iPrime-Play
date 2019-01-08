@@ -7,7 +7,6 @@ import errors.UtilisateurExisteException;
 import errors.UtilisateurTropJeuneException;
 import models.Utilisateur;
 import models.dto.InscriptionDto;
-import notifiers.Mails;
 import play.data.validation.Valid;
 import services.UtilisateursService;
 
@@ -53,9 +52,9 @@ public class Inscription extends TrackerController {
         render();
     }
 
-    public static void resentEmailForValidationToken(String email){
+    public static void renvoiEmailActivationDeCompte(String email){
         try {
-            UtilisateursService.resentEmailForValidationToken(email);
+            UtilisateursService.renvoiEmailActivationDeCompte(email);
             flash.put("status","OK");
         } catch (BadUtilisateurException e) {
             flash.put("status","EmailDoesNotExist");

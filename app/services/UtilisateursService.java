@@ -38,9 +38,10 @@ public class UtilisateursService {
         utilisateur.valid = false;
 
         //Token validation
-        ValidationToken validationToken = new ValidationToken();
-        validationToken.dateCreation = Date.from(Instant.now());
-        utilisateur.validationToken = validationToken;
+        createValidationToken(utilisateur);
+//        ValidationToken validationToken = new ValidationToken();
+//        validationToken.dateCreation = Date.from(Instant.now());
+//        utilisateur.validationToken = validationToken;
 
         //Enregistrer utilisateur
         utilisateur.save();
@@ -70,7 +71,6 @@ public class UtilisateursService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-
         ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
         LocalDate ld = LocalDate.now().minusDays(1);
         Date dateLimiteValidToken = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -83,12 +83,21 @@ public class UtilisateursService {
         }
     }
 
-    public static void resentEmailForValidationToken(String email) throws BadUtilisateurException {
-        Logger.debug("%s resentEmailForValidationToken : [%s]", LOG_PREFIX, email);
+    public static void renvoiEmailActivationDeCompte(String email) throws BadUtilisateurException {
+        Logger.debug("%s renvoiEmailActivationDeCompte : [%s]", LOG_PREFIX, email);
         Utilisateur utilisateur = UtilisateursService.getByEmail(email);
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
+        createValidationToken(utilisateur);
+        utilisateur.save();
         Mails.confirmerInscription(utilisateur);
+    }
+
+    private static void createValidationToken(Utilisateur utilisateur){
+        Logger.debug("%s createValidationToken : [%s]", LOG_PREFIX, utilisateur.email);
+        ValidationToken validationToken = new ValidationToken();
+        validationToken.dateCreation = Date.from(Instant.now());
+        utilisateur.validationToken = validationToken;
     }
 }
