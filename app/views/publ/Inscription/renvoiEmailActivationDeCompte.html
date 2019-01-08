@@ -1,18 +1,21 @@
 #{extends 'main.html'/}
 #{set title='Essai de renvoi d\'email'/}
 
-#{if flash.get('status').equals('OK')}
-<h1>Votre demande d'inscription a été prise en compte</h1>
-<p>Un email de validation vous a été renvoyé. </br>
-    Veuillez cliquer sur le lien contenu dans l'email afin de valider votre compte. </br>
-    Vous ne pourrez pas vous connecter tant que vous n'aurez pas cliqué sur ce lien. </br>
-    Le lien restera actif pendant 24h.</p>
-#{/if}
+<div class="carre">
+    #{if flash.get('status').equals('OK')}
+        <h1>Votre demande d'inscription a été prise en compte</h1>
+        <p>Un email de validation vous a été renvoyé. </br>
+            Veuillez cliquer sur le lien contenu dans l'email afin de valider votre compte. </br>
+            Vous ne pourrez pas vous connecter tant que vous n'aurez pas cliqué sur ce lien. </br>
+            Le lien restera actif pendant 24h.</p>
+    #{/if}
 
-#{if flash.get('status').equals('EmailDoesNotExist')}
-<h1>Votre demande d'inscription n'a pas pu être prise en compte</h1>
-<p>Il semblerait que votre compte n'existe pas.<br/>
-    Veuillez remplir le formulaire d'inscription : <a href="@{publ.Inscription.formulaireInscription()}">Inscription</a></p>
-#{/if}
+    #{if flash.get('status').equals('EmailDoesNotExist')}
+    <h1>Votre demande d'inscription n'a pas pu être prise en compte</h1>
+        <p>Il semblerait que votre compte n'existe pas.<br/>
+            Veuillez remplir le formulaire d'inscription : <a href="@{publ.Inscription.formulaireInscription()}">Inscription</a>
+        </p>
+    #{/if}
 
-<h4><a href="@{auth.Auth.index()}">Retour à l'accueil</a></h4>
+    <h4><a href="@{auth.Auth.index()}">Retour à l'accueil</a></h4>
+</div>

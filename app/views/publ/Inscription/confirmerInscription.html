@@ -28,5 +28,12 @@
 </p>
 #{/if}
 
+#{if flash.get('status').equals('AccountAlreadyActivated')}
+<h1>Votre compte est déjà activé !</h1>
+<p>
+    <a href="@{auth.Auth.index()}">Youpi ! Je me connecte tout de suite !</a>
+</p>
+#{/if}
+
 
 </div>
