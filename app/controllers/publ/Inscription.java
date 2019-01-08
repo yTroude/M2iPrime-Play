@@ -38,7 +38,6 @@ public class Inscription extends TrackerController {
     }
 
     public static void confirmerInscription(String utilisateurUuid, String validationTokenUuid){
-        //TODO gestion d'exception
         try {
             UtilisateursService.confirmerUtilisateur(utilisateurUuid, validationTokenUuid);
             flash.put("status","OK");
@@ -55,8 +54,13 @@ public class Inscription extends TrackerController {
     }
 
     public static void resentEmailForValidationToken(String email){
-        Utilisateur utilisateur = UtilisateursService.getByEmail(email);
-        Mails.confirmerInscription(utilisateur);
+        try {
+            UtilisateursService.resentEmailForValidationToken(email);
+            flash.put("status","OK");
+        } catch (BadUtilisateurException e) {
+            flash.put("status","EmailDoesNotExist");
+        }
+        render();
     }
 
 }

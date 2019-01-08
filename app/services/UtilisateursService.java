@@ -83,7 +83,12 @@ public class UtilisateursService {
         }
     }
 
-    public static void resentEmailForValidationToken(){
-
+    public static void resentEmailForValidationToken(String email) throws BadUtilisateurException {
+        Logger.debug("%s resentEmailForValidationToken : [%s]", LOG_PREFIX, email);
+        Utilisateur utilisateur = UtilisateursService.getByEmail(email);
+        if (utilisateur == null) {
+            throw new BadUtilisateurException();
+        }
+        Mails.confirmerInscription(utilisateur);
     }
 }

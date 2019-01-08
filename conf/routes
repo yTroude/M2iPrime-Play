@@ -18,6 +18,7 @@ GET     /inscription                            publ.Inscription.formulaireInscr
 POST    /inscription/submit                     publ.Inscription.inscription
 GET     /inscription/confirm/{utilisateurUuid}/{validationTokenUuid}             publ.Inscription.confirmerInscription
 GET     /inscription/resentEmail                publ.Inscription.resentEmailForValidationToken
+POST    /inscription/resentEmail                publ.Inscription.resentEmailForValidationToken
 
 ######################
 # Authentified users #
