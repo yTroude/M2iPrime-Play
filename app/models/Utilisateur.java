@@ -12,11 +12,11 @@ import java.util.Date;
 public class Utilisateur extends UUIDModel {
     @Column(nullable = false, unique = true)
     public String email;
-    public String nom;
-    public String prenom;
+    public String pseudo;
     public Date dateNaissance;
     @OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
     public ValidationToken validationToken;
     public boolean valid;
     public String password;
+    public String avatar;
 }

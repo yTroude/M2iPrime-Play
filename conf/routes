@@ -26,7 +26,7 @@ POST    /inscription/resentEmail                publ.Inscription.renvoiEmailActi
 
 # Welcome auth users page
 GET     /                                auth.Auth.index
-
+GET     /inscription/fin                 auth.Inscription.formulaireFinInscription
 
 
 # Ignore favicon requests
