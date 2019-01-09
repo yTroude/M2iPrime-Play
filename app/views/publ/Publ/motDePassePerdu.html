@@ -1,0 +1,31 @@
+#{extends 'main.html'/}
+#{set title='Réinitialisation du mot de passe'/}
+
+<div class="carre">
+    #{ifnot flash.contains("AccountNotActivated")}
+        <h1>Réinitialisation du mot de passe</h1>
+        <p>Veuillez saisir votre email afin de procéer à la réinitialisation de votre mot de passe</p>
+        #{if flash.get("lostPwd").equals("BadUtilisateurException")}
+            <div>Aucun compte trouvé avec cette adresse email</div>
+        #{/if}
+        <form method="post" action="@{publ.Publ.reinitMotDePasse()}">
+            <div class="form-group">
+                <label for="inputEmail">Email : </label>
+                <input class="form-control" type="email" id="inputEmail" placeholder="Votre adresse email..." name="email">
+            </div>
+            <button type="submit" class="btn btn-primary">Réinitialiser mon mot de passe</button>
+        </form>
+        <p>
+            Si vous n'avez pas déjà rempli le formulaire d'inscription, c'est par ici =>
+            <a href="@{publ.Inscription.formulaireInscription()}">Inscription</a>
+        </p>
+    #{/ifnot}
+
+    #{if flash.get("AccountNotActivated").equals("true")}
+        <div>Votre compte est en attente d'activation.<br/>
+            Veuillez vérifier vos mails afin d'activer votre compte.<br/>
+            Si vous n'avez pas reçu d'email d'activation de compte, vous pouvez en regénérer un nouveau.
+            <a href="@{publ.Inscription.renvoiEmailActivationDeCompte(flash.get('utilisateurEmail'))}">Renvoyer un mail de validation</a>
+        </div>
+    #{/if}
+</div>

@@ -10,4 +10,5 @@ public class Auth extends TrackerController {
     public static void index(){
         render();
     }
+
 }

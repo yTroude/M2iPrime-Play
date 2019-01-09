@@ -19,6 +19,8 @@ POST    /inscription/submit                     publ.Inscription.inscription
 GET     /inscription/confirm/{utilisateurUuid}/{validationTokenUuid}             publ.Inscription.confirmerInscription
 GET     /inscription/resentEmail                publ.Inscription.renvoiEmailActivationDeCompte
 POST    /inscription/resentEmail                publ.Inscription.renvoiEmailActivationDeCompte
+GET     /lostPassword                           publ.Publ.motDePassePerdu
+POST    /lostPassword                           publ.Publ.reinitMotDePasse
 
 ######################
 # Authentified users #
@@ -26,7 +28,6 @@ POST    /inscription/resentEmail                publ.Inscription.renvoiEmailActi
 
 # Welcome auth users page
 GET     /                                auth.Auth.index
-
 
 
 # Ignore favicon requests

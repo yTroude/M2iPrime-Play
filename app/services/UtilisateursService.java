@@ -97,10 +97,29 @@ public class UtilisateursService {
         Mails.confirmerInscription(utilisateur);
     }
 
+    //TODO : Créer une classe ValidationTokenService et placer cette méthode à l'intérieur
     private static void createValidationToken(Utilisateur utilisateur){
         Logger.debug("%s createValidationToken : [%s]", LOG_PREFIX, utilisateur.email);
         ValidationToken validationToken = new ValidationToken();
         validationToken.dateCreation = Date.from(Instant.now());
         utilisateur.validationToken = validationToken;
+    }
+
+    public static void reinitMotDePasse(String email) throws BadUtilisateurException, AccountNotActivated {
+        Logger.debug("%s reinitMotDePasse : [%s]", LOG_PREFIX, email);
+        Utilisateur utilisateur = UtilisateursService.getByEmail(email);
+
+        //Vérifications métier
+        if (utilisateur == null) {
+            throw new BadUtilisateurException();
+        }
+        if (utilisateur.valid == false){
+            throw new AccountNotActivated();
+        }
+
+        //Réinit du mdp, enregistrer, envoyer mail au user
+        utilisateur.password = BCrypt.hashpw("toto", BCrypt.gensalt()); //Provisoire, maybe trouver un generateur de mdp aleatoire serait une good idea ?
+        utilisateur.save();
+        Mails.reinitialiserMotDePasse(utilisateur);
     }
 }
