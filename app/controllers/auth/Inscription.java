@@ -4,7 +4,6 @@ import controllers.Secure;
 import controllers.TrackerController;
 import models.Utilisateur;
 import play.data.validation.Required;
-import play.data.validation.Unique;
 import play.mvc.With;
 import services.UtilisateursService;
 import util.Images;
@@ -15,18 +14,19 @@ import static controllers.Security.connectedUser;
 public class Inscription extends TrackerController {
     public static void formulaireFinInscription() {
         String[] avatars = Images.avatars;
-        render(avatars);
+        renderArgs.put("avatars",avatars);
+        render();
     }
 
-    public static void finirInscription(@Required @Unique String pseudo, @Required String avatar) {
-        boolean valid=true;
+    public static void finirInscription(@Required String pseudo, @Required String avatar) {
         if (validation.hasErrors()) {
-            valid=false;
+            validation.keep();
+            params.flash();
+            formulaireFinInscription();
+            //valid=false;
         }
         if (UtilisateursService.getByPseudo(pseudo) != null){
             flash.put("PseudoExiste","true");
-        }
-        if(!valid){
             params.flash();
             validation.keep();
             formulaireFinInscription();
@@ -35,6 +35,7 @@ public class Inscription extends TrackerController {
         Utilisateur utilisateur = connectedUser();
         utilisateur.pseudo = pseudo;
         utilisateur.avatar = avatar;
+        utilisateur.save();
         render();
     }
 }
