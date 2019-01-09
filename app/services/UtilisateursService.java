@@ -39,10 +39,7 @@ public class UtilisateursService {
         utilisateur.valid = false;
 
         //Token validation
-        createValidationToken(utilisateur);
-//        ValidationToken validationToken = new ValidationToken();
-//        validationToken.dateCreation = Date.from(Instant.now());
-//        utilisateur.validationToken = validationToken;
+        utilisateur.validationToken = ValidationTokenService.createValidationToken(utilisateur);
 
         //Enregistrer utilisateur
         utilisateur.save();
@@ -93,17 +90,9 @@ public class UtilisateursService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-        createValidationToken(utilisateur);
+        utilisateur.validationToken = ValidationTokenService.createValidationToken(utilisateur);
         utilisateur.save();
         Mails.confirmerInscription(utilisateur);
-    }
-
-    //TODO : Créer une classe ValidationTokenService et placer cette méthode à l'intérieur
-    private static void createValidationToken(Utilisateur utilisateur){
-        Logger.debug("%s createValidationToken : [%s]", LOG_PREFIX, utilisateur.email);
-        ValidationToken validationToken = new ValidationToken();
-        validationToken.dateCreation = Date.from(Instant.now());
-        utilisateur.validationToken = validationToken;
     }
 
     public static void reinitMotDePasse(String email) throws BadUtilisateurException, AccountNotActivated {
