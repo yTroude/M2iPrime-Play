@@ -3,6 +3,9 @@
 
 <div class="carre">
     <h1>M2iPrime</h1>
-    <h3>Connexion réussie : Welcome ${connectedUser.email} !</h3>
+    <h3>Connexion réussie : Welcome ${connectedUser.pseudo} !</h3>
+    <img src="/public/images/avatars/${connectedUser.avatar}" alt="${avatar}" width="100px" height="100px">
+
+
     <a href="@{Secure.logout()}">Déconnexion</a>
 </div>

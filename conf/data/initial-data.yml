@@ -1,0 +1,22 @@
+#Utilisateur totalement inscrit
+Utilisateur(megabob):
+  email: inscrit@mail.com
+  pseudo: inscrit
+  dateNaissance: 1999-01-01 00:00:00
+  valid: true
+  avatar: cat_0.png
+#Utilisateur inscrit, mail validé, pseudo/avatar non renseignés.
+Utilisateur(hubert):
+  email: valide@mail.com
+  dateNaissance: 1999-01-01 00:00:00
+  valid: true
+  avatar: _avatar.png
+#Utilisateur inscrit, mail non validé
+ValidationToken(validation):
+  dateCreation: 2019-01-09 12:23:14
+Utilisateur(jeanbon):
+  email: nonvalide@mail.com
+  dateNaissance: 1999-01-01 00:00:00
+  validationToken: validation
+  valid: false
+  avatar: _avatar.png

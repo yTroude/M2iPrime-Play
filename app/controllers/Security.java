@@ -1,7 +1,6 @@
 package controllers;
 
 import controllers.auth.Auth;
-import controllers.publ.Publ;
 import models.Utilisateur;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
@@ -17,7 +16,7 @@ public class Security extends Secure.Security {
         if (utilisateur != null && utilisateur.valid == true){
             Logger.debug("%s authenticate, utilisateur != null", LOG_PREFIX);
             if (BCrypt.checkpw(password, utilisateur.password)){
-                Logger.debug("%s authenticate, password checked ! return true", LOG_PREFIX);
+                Logger.debug("%s authenticate [user=%s]", LOG_PREFIX,username);
                 return true;
             }
         }

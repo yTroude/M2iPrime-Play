@@ -36,23 +36,16 @@ public class UtilisateursService {
         utilisateur.email = inscriptionDto.email;
         utilisateur.password = BCrypt.hashpw(inscriptionDto.password, BCrypt.gensalt());
         utilisateur.valid = false;
+        utilisateur.avatar = "/public/images/avatars/_avatar.png";
 
         //Token validation
         createValidationToken(utilisateur);
-//        ValidationToken validationToken = new ValidationToken();
-//        validationToken.dateCreation = Date.from(Instant.now());
-//        utilisateur.validationToken = validationToken;
 
         //Enregistrer utilisateur
         utilisateur.save();
 
         //Envoi mail
         Mails.confirmerInscription(utilisateur);
-    }
-
-    public static Utilisateur getByEmailAndPassword(String email, String password) {
-        Logger.debug("%s getByEmailAndPassword : [%s]", LOG_PREFIX, email);
-        return Utilisateur.find("email = ?1 AND password = ?2", email, password).first();
     }
 
     public static Utilisateur getByEmail(String email) {
@@ -102,5 +95,9 @@ public class UtilisateursService {
         ValidationToken validationToken = new ValidationToken();
         validationToken.dateCreation = Date.from(Instant.now());
         utilisateur.validationToken = validationToken;
+    }
+
+    public static Utilisateur getByPseudo(String pseudo) {
+        return Utilisateur.find("pseudo=?1",pseudo).first();
     }
 }
