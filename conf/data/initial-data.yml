@@ -1,0 +1,42 @@
+Video(fast and furious):
+  titre: fast and furious
+  desc: cars, crime and more
+  categorie: action
+  format: film
+  acteurs: Vin Diesel
+  uuid: 123
+
+Video(fast and furious 2):
+  titre: fast and furious 2
+  desc: cars, crime and more
+  categorie: action
+  format: film
+  acteurs:
+  -Vin Diesel
+  -Paul Walker
+  -Benjamin Maillet
+  uuid: 124
+
+Acteur (Vin Diesel):
+  nomActeur: Diesel
+  prenomActeur: Vin
+  uuid : aaa
+  videos:
+    -fast and furious
+    -fast and furious 2
+Acteur (Benjamin Maillet):
+    nomActeur: Maillet
+    prenomActeur: Benjamin
+    uuid: bbb
+    videos:
+      -fast and furious 2
+
+Acteur (Paul Walker):
+  nomActeur: Walker
+  prenomActeur: Paul
+  uuid: zzz
+  videos:
+    -fast and furious 2
+
+
+

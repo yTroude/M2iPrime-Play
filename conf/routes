@@ -20,6 +20,25 @@ GET     /connexion                              publ.Publ.formulaireConnexion
 
 
 
+
+
+#API
+
+GET     /api/videos                             api.ApiController.allVideos
+GET     /api/videos/details/{uuid}              api.ApiController.detailsVideo
+GET     /api/videos/categorie/{categorie}       api.ApiController.filterByCategorie
+GET     /api/videos/{format}                    api.ApiController.filterByFormat
+GET     /api/videos/{format}/{categorie}        api.ApiController.filterByFormatAndCategorie
+GET     /api/acteurs/details/{uuid}             api.ApiController.detailsActeur
+
+
+
+POST    /api/videos/add                         api.ApiController.ajouterVideo
+POST    /api/acteurs/add                        api.ApiController.addActeur
+POST    /api/videos/addActeur                   api.ApiController.addActeurToVideo
+POST    /api/acteurs/addVideo                   api.ApiController.addVideoToActeur
+
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
