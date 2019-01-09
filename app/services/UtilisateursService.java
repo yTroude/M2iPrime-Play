@@ -7,6 +7,7 @@ import models.dto.InscriptionDto;
 import notifiers.Mails;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
+import util.PasswordGenerator;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -117,9 +118,15 @@ public class UtilisateursService {
             throw new AccountNotActivated();
         }
 
-        //Réinit du mdp, enregistrer, envoyer mail au user
-        utilisateur.password = BCrypt.hashpw("toto", BCrypt.gensalt()); //Provisoire, maybe trouver un generateur de mdp aleatoire serait une good idea ?
-        utilisateur.save();
+        //Générer new mdp, envoyer mail au user, chiffrer, enregistrer
+        String generatedPwd = PasswordGenerator.generatePassword(12,
+                PasswordGenerator.ALPHA_CAPS +
+                        PasswordGenerator.ALPHA +
+                        PasswordGenerator.SPECIAL_CHARS +
+                        PasswordGenerator.NUMERIC);
+        utilisateur.password = generatedPwd;
         Mails.reinitialiserMotDePasse(utilisateur);
+        utilisateur.password = BCrypt.hashpw(generatedPwd, BCrypt.gensalt());
+        utilisateur.save();
     }
 }

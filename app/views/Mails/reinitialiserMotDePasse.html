@@ -4,7 +4,9 @@
     </head>
     <body>
         <h1>Réinitialisation du mot de passe de votre compte M2iPrime</h1>
-        <p>Votre nouveau mot de passe est : toto<br/>
+        <p>Bonjour ${utilisateur.email} !<br/>
+            Votre nouveau mot de passe est : ${utilisateur.password}<br/>
+            Pour des raisons de sécurité, nous vous conseillons de le modifier juste après vous être connecté.<br/>
             <a href="@@{auth.Auth.index()}" >Merci ! Je me connecte tout de suite</a>
         </p>
     </body>
