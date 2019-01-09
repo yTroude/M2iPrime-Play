@@ -4,10 +4,10 @@
     </head>
     <body>
         <h1>Réinitialisation du mot de passe de votre compte M2iPrime</h1>
-        <p>Bonjour ${utilisateur.email} !<br/>
-            Votre nouveau mot de passe est : ${utilisateur.password}<br/>
-            Pour des raisons de sécurité, nous vous conseillons de le modifier juste après vous être connecté.<br/>
-            <a href="@@{auth.Auth.index()}" >Merci ! Je me connecte tout de suite</a>
+        <p>Bonjour,<br/>
+            Veuillez cliquer sur le lien ci-dessous pour définir votre nouveau mot de passe.<br/>
+            <a href="@@{publ.Publ.defineNewPassword(passwordResetRequest.uuid, passwordResetRequest.validationToken.uuid)}" >
+            @@{publ.Publ.defineNewPassword(passwordResetRequest.uuid, passwordResetRequest.validationToken.uuid)}</a>
         </p>
     </body>
 </html>

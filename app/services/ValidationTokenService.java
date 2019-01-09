@@ -11,8 +11,8 @@ public class ValidationTokenService {
 
     public static final String LOG_PREFIX = "ValidationTokenService | ";
 
-    protected static ValidationToken createValidationToken(Utilisateur utilisateur){
-        Logger.debug("%s createValidationToken : [%s]", LOG_PREFIX, utilisateur.email);
+    protected static ValidationToken createValidationToken(){
+        Logger.debug("%s createValidationToken", LOG_PREFIX);
         ValidationToken validationToken = new ValidationToken();
         validationToken.dateCreation = Date.from(Instant.now());
         return validationToken;

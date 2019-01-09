@@ -2,13 +2,16 @@ package controllers.publ;
 
 import controllers.TrackerController;
 import errors.AccountNotActivated;
+import errors.BadPasswordResetRequestException;
 import errors.BadUtilisateurException;
+import errors.BadValidationTokenException;
 import play.*;
 import play.mvc.*;
 
 import java.util.*;
 
 import models.*;
+import services.PasswordResetRequestService;
 import services.UtilisateursService;
 
 public class Publ extends TrackerController {
@@ -21,9 +24,9 @@ public class Publ extends TrackerController {
         render();
     }
 
-    public static void reinitMotDePasse(String email){
+    public static void sendResetPasswordEmail(String email){
         try {
-            UtilisateursService.reinitMotDePasse(email);
+            PasswordResetRequestService.sendResetPasswordEmail(email);
         } catch (BadUtilisateurException e) {
             flash.put("lostPwd", "BadUtilisateurException");
             motDePassePerdu();
@@ -33,6 +36,19 @@ public class Publ extends TrackerController {
             motDePassePerdu();
         }
         flash.clear();
+        render();
+    }
+
+    public static void defineNewPassword(String passwordResetRequestUuid, String validationTokenUuid){
+        try {
+            UtilisateursService.defineNewPassword(passwordResetRequestUuid, validationTokenUuid);
+        } catch (BadPasswordResetRequestException e) {
+            flash.put("status", "BadPasswordResetRequestException");
+            motDePassePerdu();
+        } catch (BadValidationTokenException e) {
+            flash.put("status", "BadValidationTokenException");
+            motDePassePerdu();
+        }
         render();
     }
 

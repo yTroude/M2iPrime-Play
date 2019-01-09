@@ -1,10 +1,12 @@
 package services;
 
 import errors.*;
+import models.PasswordResetRequest;
 import models.Utilisateur;
 import models.ValidationToken;
 import models.dto.InscriptionDto;
 import notifiers.Mails;
+import org.joda.time.Minutes;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
 import util.PasswordGenerator;
@@ -13,6 +15,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class UtilisateursService {
 
@@ -39,7 +43,7 @@ public class UtilisateursService {
         utilisateur.valid = false;
 
         //Token validation
-        utilisateur.validationToken = ValidationTokenService.createValidationToken(utilisateur);
+        utilisateur.validationToken = ValidationTokenService.createValidationToken();
 
         //Enregistrer utilisateur
         utilisateur.save();
@@ -90,32 +94,24 @@ public class UtilisateursService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-        utilisateur.validationToken = ValidationTokenService.createValidationToken(utilisateur);
+        utilisateur.validationToken = ValidationTokenService.createValidationToken();
         utilisateur.save();
         Mails.confirmerInscription(utilisateur);
     }
 
-    public static void reinitMotDePasse(String email) throws BadUtilisateurException, AccountNotActivated {
-        Logger.debug("%s reinitMotDePasse : [%s]", LOG_PREFIX, email);
-        Utilisateur utilisateur = UtilisateursService.getByEmail(email);
-
-        //Vérifications métier
-        if (utilisateur == null) {
-            throw new BadUtilisateurException();
-        }
-        if (utilisateur.valid == false){
-            throw new AccountNotActivated();
+    public static void defineNewPassword(String passwordResetRequestUuid, String validationTokenUuid) throws BadPasswordResetRequestException, BadValidationTokenException {
+        Logger.debug("%s defineNewPassword : [%s] [%s]", LOG_PREFIX, passwordResetRequestUuid, validationTokenUuid);
+        PasswordResetRequest passwordResetRequest = PasswordResetRequest.find("uuid = ?1", passwordResetRequestUuid).first();
+        if (passwordResetRequest == null) {
+            throw new BadPasswordResetRequestException();
         }
 
-        //Générer new mdp, envoyer mail au user, chiffrer, enregistrer
-        String generatedPwd = PasswordGenerator.generatePassword(12,
-                PasswordGenerator.ALPHA_CAPS +
-                        PasswordGenerator.ALPHA +
-                        PasswordGenerator.SPECIAL_CHARS +
-                        PasswordGenerator.NUMERIC);
-        utilisateur.password = generatedPwd;
-        Mails.reinitialiserMotDePasse(utilisateur);
-        utilisateur.password = BCrypt.hashpw(generatedPwd, BCrypt.gensalt());
-        utilisateur.save();
+        ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
+        LocalDate ld = LocalDate.now().minus(5, MINUTES);
+        Date dateLimiteValidToken = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        if (validationToken == null || validationToken.dateCreation.before(dateLimiteValidToken)) {
+            throw new BadValidationTokenException();
+        }
     }
 }
