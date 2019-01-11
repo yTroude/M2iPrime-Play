@@ -6,7 +6,7 @@ import models.Utilisateur;
 import models.ValidationToken;
 import models.dto.InscriptionDto;
 import notifiers.Mails;
-import org.joda.time.Minutes;
+import org.apache.commons.lang.time.DateUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
 import util.PasswordGenerator;
@@ -14,6 +14,7 @@ import util.PasswordGenerator;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
@@ -107,10 +108,18 @@ public class UtilisateursService {
         }
 
         ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
-        LocalDate ld = LocalDate.now().minus(5, MINUTES);
-        Date dateLimiteValidToken = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
+//        LocalDate ld = LocalDate.now();
+//        Date dateLimiteValidToken = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        final long FIVE_MINUTES_IN_MILLIS=300000;//millisecs
+        Calendar date = Calendar.getInstance();
+        long t = date.getTimeInMillis();
+        Date dateLimiteValidToken = new Date(t - FIVE_MINUTES_IN_MILLIS);
+        System.out.println("validationToken.dateCreation : " + validationToken.dateCreation);
+        System.out.println("dateLimiteValidToken : " + dateLimiteValidToken);
 
         if (validationToken == null || validationToken.dateCreation.before(dateLimiteValidToken)) {
+            System.out.println("validationToken.dateCreation : " + validationToken.dateCreation);
+            System.out.println("dateLimiteValidToken : " + dateLimiteValidToken);
             throw new BadValidationTokenException();
         }
     }

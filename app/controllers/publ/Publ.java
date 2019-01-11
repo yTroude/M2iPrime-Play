@@ -43,12 +43,19 @@ public class Publ extends TrackerController {
         try {
             UtilisateursService.defineNewPassword(passwordResetRequestUuid, validationTokenUuid);
         } catch (BadPasswordResetRequestException e) {
+            System.out.println("BadPasswordResetRequestException");
             flash.put("status", "BadPasswordResetRequestException");
             motDePassePerdu();
         } catch (BadValidationTokenException e) {
+            System.out.println("BadValidationTokenException");
             flash.put("status", "BadValidationTokenException");
             motDePassePerdu();
         }
+        System.out.println("defineNewPassword render()");
+        render();
+    }
+
+    public static void resetPassword(){
         render();
     }
 
