@@ -6,14 +6,16 @@ import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
 import services.UtilisateursService;
 
+import static util.ValidationStatus.MAIL_SENT;
+
 public class Security extends Secure.Security {
 
     public static final String LOG_PREFIX = "Security | ";
 
     static boolean authenticate(String username, String password){
-        Logger.debug("%s authenticate", LOG_PREFIX);
+        Logger.debug("%s authenticate [user %s ; pass %s]", LOG_PREFIX,username,password);
         Utilisateur utilisateur = UtilisateursService.getByEmail(username);
-        if (utilisateur != null && utilisateur.valid == true){
+        if (utilisateur != null && (utilisateur.validationStatus != MAIL_SENT)){
             Logger.debug("%s authenticate, utilisateur != null", LOG_PREFIX);
             if (BCrypt.checkpw(password, utilisateur.password)){
                 Logger.debug("%s authenticate [user=%s]", LOG_PREFIX,username);

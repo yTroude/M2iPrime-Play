@@ -1,17 +1,23 @@
 package services;
 
 import errors.*;
+import models.Profil;
 import models.Utilisateur;
 import models.ValidationToken;
 import models.dto.InscriptionDto;
 import notifiers.Mails;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
+import util.Images;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+
+import static util.ValidationStatus.MAIL_SENT;
+import static util.ValidationStatus.VALID;
 
 public class UtilisateursService {
 
@@ -35,8 +41,8 @@ public class UtilisateursService {
         utilisateur.dateNaissance = inscriptionDto.dateNaissance;
         utilisateur.email = inscriptionDto.email;
         utilisateur.password = BCrypt.hashpw(inscriptionDto.password, BCrypt.gensalt());
-        utilisateur.valid = false;
-        utilisateur.avatar = "/public/images/avatars/_avatar.png";
+        utilisateur.validationStatus = MAIL_SENT;
+        utilisateur.profils = new ArrayList<>();
 
         //Token validation
         createValidationToken(utilisateur);
@@ -64,7 +70,7 @@ public class UtilisateursService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-        if (utilisateur.valid == true){
+        if (utilisateur.validationStatus !=MAIL_SENT){
             throw new AccountAlreadyActivated();
         }
         ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
@@ -74,7 +80,11 @@ public class UtilisateursService {
         if (validationToken == null || validationToken.dateCreation.before(dateLimiteValidToken)) {
             throw new BadValidationTokenException();
         } else {
-            utilisateur.valid = true;
+            Profil profil = new Profil();
+            profil.utilisateur=utilisateur;
+            profil.avatar= Images.DEFAULT_AVATAR_NAME;
+            profil.pseudo= utilisateur.email.split("@")[0];
+            utilisateur.validationStatus = VALID;
             utilisateur.save();
         }
     }
@@ -97,7 +107,4 @@ public class UtilisateursService {
         utilisateur.validationToken = validationToken;
     }
 
-    public static Utilisateur getByPseudo(String pseudo) {
-        return Utilisateur.find("pseudo=?1",pseudo).first();
-    }
 }

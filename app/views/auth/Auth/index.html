@@ -1,11 +1,25 @@
-#{extends 'main.html' /}
+#{extends 'auth/menu.html' /}
 #{set title:'Welcome you authenticated people' /}
 
 <div class="carre">
     <h1>M2iPrime</h1>
-    <h3>Connexion réussie : Welcome ${connectedUser.pseudo} !</h3>
-    <img src="/public/images/avatars/${connectedUser.avatar}" alt="${avatar}" width="100px" height="100px">
+#{if session.contains("pseudoProfilActif")}
+    <h3>Connexion réussie : Welcome ${pseudo} !</h3>
+#{/if}
+#{else}
+    <div class="row">
+        #{list items:profils, as:'profil'}
+            <div class="card">
+                <a href="@{auth.Auth.changeActiveProfile(profil)}">
+                    <img src="/public/images/avatars/${profil.avatar}" class="card-img-top"
+                         alt="Avatar ${profil.pseudo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${profil.pseudo}</h5>
+                    </div>
+                </a>
+            </div>
+        #{/list}
+    </div>
+#{/else}
 
-
-    <a href="@{Secure.logout()}">Déconnexion</a>
 </div>
