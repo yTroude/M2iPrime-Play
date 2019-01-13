@@ -1,10 +1,8 @@
 package controllers.publ;
 
 import controllers.TrackerController;
-import errors.AccountNotActivated;
-import errors.BadPasswordResetRequestException;
-import errors.BadUtilisateurException;
-import errors.BadValidationTokenException;
+import errors.*;
+import models.dto.NewPasswordDto;
 import play.*;
 import play.mvc.*;
 
@@ -13,6 +11,8 @@ import java.util.*;
 import models.*;
 import services.PasswordResetRequestService;
 import services.UtilisateursService;
+
+import javax.validation.Valid;
 
 public class Publ extends TrackerController {
 
@@ -55,7 +55,19 @@ public class Publ extends TrackerController {
         render();
     }
 
-    public static void resetPassword(){
+    public static void resetPassword(@Valid NewPasswordDto newPasswordDto){
+        if(validation.hasErrors()){
+            params.flash();
+            validation.keep();
+//            defineNewPassword();
+        }
+        try {
+            UtilisateursService.resetPassword(newPasswordDto);
+        } catch (PasswordConfirmationException e) {
+            flash.put("PasswordConfirmationException", "true");
+        } catch (BadUtilisateurException e) {
+            flash.put("BadUtilisateurException", "true");
+        }
         render();
     }
 

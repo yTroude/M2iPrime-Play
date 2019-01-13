@@ -5,6 +5,7 @@ import models.PasswordResetRequest;
 import models.Utilisateur;
 import models.ValidationToken;
 import models.dto.InscriptionDto;
+import models.dto.NewPasswordDto;
 import notifiers.Mails;
 import org.apache.commons.lang.time.DateUtils;
 import org.mindrot.jbcrypt.BCrypt;
@@ -122,5 +123,24 @@ public class UtilisateursService {
             System.out.println("dateLimiteValidToken : " + dateLimiteValidToken);
             throw new BadValidationTokenException();
         }
+    }
+
+    public static void resetPassword(NewPasswordDto newPasswordDto) throws PasswordConfirmationException, BadUtilisateurException {
+        Logger.debug("%s resetPassword : [%s]", LOG_PREFIX, newPasswordDto.email);
+
+        //Verifications metier
+        if (getByEmail(newPasswordDto.email) == null) {
+            throw new BadUtilisateurException();
+        }
+        if (!newPasswordDto.password.equals(newPasswordDto.passwordConfirmation)) {
+            throw new PasswordConfirmationException();
+        }
+
+        //Affecter nouveau mot de passe à l'objet Utilisateur correspondant
+        Utilisateur utilisateur = getByEmail(newPasswordDto.email);
+        utilisateur.password = BCrypt.hashpw(newPasswordDto.password, BCrypt.gensalt());
+
+        //Enregistrer utilisateur
+        utilisateur.save();
     }
 }
