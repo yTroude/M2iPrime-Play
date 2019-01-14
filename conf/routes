@@ -29,6 +29,7 @@ GET     /                                       auth.Auth.index
 GET     /profil/actif                           auth.Auth.choisirProfilActif
 GET     /profil/actif/{pseudo}                  auth.Auth.changerProfilActif
 GET     /profil                                 auth.Profil.profils
+GET     /compte                                 auth.Auth.gestionCompte
 
 
 #########
