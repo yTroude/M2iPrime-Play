@@ -7,20 +7,27 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-        #{if session.contains("pseudoProfilActif")}
-            <li class="nav-item">
-                <a class="nav-link" href="@{controllers.auth.Profil.profil()}"><img class="img-thumbnail"
-                                                                                    src="/public/images/avatars/${session.get("avatarProfilActif")}"
-                                                                                    height="50px"
-                                                                                    width="50px">Profil</a>
-            </li>
-        #{/if}
-            <li class="nav-item">
-                <a class="nav-link" href="@{Secure.logout()}">Déconnexion</a>
-            </li>
+        <div class="navbar-nav ml-auto dropdown">
+            <button class="btn btn-secondary dropdown-toggle" id="dropDownMainMenu" data-toggle="dropdown">
+            #{if session.contains("profilActif")}}
+                <img src="/public/images/avatars/${)}">
+            #{/if}
+            #{else}
+                Menu
+            #{/else}
+            </button>
+            <div class="dropdown-menu">
+            #{if session.contains("profilActif")}
+                #{list profils, as:'profil'}
+                    #{if !session.get("profilActif").equals(profil.pseudo)}
 
-        </ul>
+                    #{/if}
+                #{/list}
+            #{/if}
+                <a class="dropdown-item"
+            </div>
+
+        </div>
     </div>
 </nav>
 

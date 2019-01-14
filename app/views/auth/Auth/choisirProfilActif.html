@@ -1,0 +1,21 @@
+#{extends 'auth/menu.html'/}
+#{set title:'M2iPrime | Choix du profil actif'/}
+
+<div class="carre">
+    <div class="col">
+        <div class="row">
+        #{list items:profils, as:'profil'}
+            <div class="card">
+                <a href="@{auth.Auth.changerProfilActif(profil.pseudo)}">
+                    <img src="/public/images/avatars/${profil.avatar}" class="card-img-top"
+                         alt="Avatar ${profil.pseudo}" height="50px">
+                    <div class="card-body">
+                        <h5 class="card-title">${profil.pseudo}</h5>
+                    </div>
+                </a>
+            </div>
+        #{/list}
+        </div>
+        <a href="@{auth.Profil.profils()}" class="btn">Gérer les profils</a>
+    </div>
+</div>

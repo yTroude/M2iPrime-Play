@@ -26,7 +26,9 @@ POST    /inscription/resentEmail                publ.Inscription.renvoiEmailActi
 
 # Welcome auth users page
 GET     /                                       auth.Auth.index
-GET     /profil                                 auth.Profil.profil
+GET     /profil/actif                           auth.Auth.choisirProfilActif
+GET     /profil/actif/{pseudo}                  auth.Auth.changerProfilActif
+GET     /profil                                 auth.Profil.profils
 
 
 #########

@@ -3,7 +3,7 @@ package controllers.auth;
 import controllers.TrackerController;
 
 public class Profil extends TrackerController {
-    public static void profil() {
+    public static void profils() {
         render();
     }
 

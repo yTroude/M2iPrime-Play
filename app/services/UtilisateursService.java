@@ -5,6 +5,7 @@ import models.Profil;
 import models.Utilisateur;
 import models.ValidationToken;
 import models.dto.InscriptionDto;
+import models.dto.ProfilDto;
 import notifiers.Mails;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static util.ValidationStatus.MAIL_SENT;
 import static util.ValidationStatus.VALID;
@@ -84,6 +86,7 @@ public class UtilisateursService {
             profil.utilisateur=utilisateur;
             profil.avatar= Images.DEFAULT_AVATAR_NAME;
             profil.pseudo= utilisateur.email.split("@")[0];
+            profil.save();
             utilisateur.validationStatus = VALID;
             utilisateur.save();
         }
@@ -107,4 +110,15 @@ public class UtilisateursService {
         utilisateur.validationToken = validationToken;
     }
 
+    public static List<ProfilDto> getListeProfils(Utilisateur utilisateur) {
+        List<ProfilDto> profils = new ArrayList<>();
+        ProfilDto profilDto = null;
+        for (Profil profil : utilisateur.profils){
+            profilDto = new ProfilDto();
+            profilDto.pseudo = profil.pseudo;
+            profilDto.avatar = profil.avatar;
+            profils.add(profilDto);
+        }
+        return profils;
+    }
 }

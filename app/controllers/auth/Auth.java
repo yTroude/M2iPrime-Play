@@ -2,11 +2,12 @@ package controllers.auth;
 
 import controllers.Secure;
 import controllers.TrackerController;
-import models.Profil;
 import models.Utilisateur;
+import models.dto.ProfilDto;
+import play.mvc.Before;
 import play.mvc.With;
+import services.ProfilsService;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static controllers.Security.connectedUser;
@@ -14,21 +15,29 @@ import static controllers.Security.connectedUser;
 @With(Secure.class)
 public class Auth extends TrackerController {
 
-    public static void index(){
+    @Before
+    static void getListProfils(){
+
+    }
+
+    public static void index() {
+        if (session.contains("profilActif")) {
+            Utilisateur utilisateur = connectedUser();
+            List<ProfilDto> profils = ProfilsService.getListProfilDtoFromListProfils(utilisateur.profils);
+            render(profils);
+        } else {
+            choisirProfilActif();
+        }
+    }
+
+    public static void choisirProfilActif() {
         Utilisateur utilisateur = connectedUser();
-        HashMap<String,String>profils
+        List<ProfilDto> profils = ProfilsService.getListProfilDtoFromListProfils(utilisateur.profils);
         render(profils);
     }
 
-    public static void changeActiveProfile(Profil profil){
-        session.put("pseudoProfilActif",profil.pseudo);
-        session.put("avatarProfilActif",profil.avatar);
+    public static void changerProfilActif(String pseudo) {
+        session.put("profilActif", pseudo);
+        index();
     }
-
-    private static void firstTime() {
-        Utilisateur utilisateur = connectedUser();
-
-    }
-
-
 }
