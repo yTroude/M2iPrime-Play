@@ -1,0 +1,17 @@
+#{extends 'auth/menu.html'/}
+#{set title:"Gestion de vos profils"/}
+
+<div class="row">
+#{list items:profils, as:'profil'}
+    <div class="card">
+        <button class="btn btn-primary" data-toggle="collapse" data-target="#${profil.pseudo}Collapse">
+            <img class="img-thumbnail" src="${profil.avatar}"/>
+        </button>
+        <div class="collapse" id="${profil.pseudo}Collapse" tabindex="-1">
+            <div class="card card-body">
+
+            </div>
+        </div>
+    </div>
+#{/list}
+</div>

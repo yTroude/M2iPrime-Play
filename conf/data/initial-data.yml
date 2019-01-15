@@ -6,11 +6,11 @@ Utilisateur(megabob):
   validationStatus: VALID_AND_CONNECTED_ONCE
 Profil(megabob-profil):
   pseudo: megabob
-  avatar: cat_0.png
+  avatar: /public/images/avatars/cat_0.png
   utilisateur: megabob
 Profil(megabob-profil-2):
   pseudo: minibob
-  avatar: cat_2.png
+  avatar: /public/images/avatars/cat_2.png
   utilisateur: megabob
 #Utilisateur inscrit, mail validé, pseudo/avatar non renseignés.
 Utilisateur(hubert):
@@ -19,7 +19,7 @@ Utilisateur(hubert):
   validationStatus: VALID
 Profil(hubert-profil):
   pseudo: valide
-  avatar: _avatar.png
+  avatar: /public/images/avatars/_avatar.png
   utilisateur: hubert
 #Utilisateur inscrit, mail non validé
 ValidationToken(validation):
@@ -31,5 +31,5 @@ Utilisateur(jeanbon):
   validationStatus: MAIL_SENT
 Profil(jeanbon-profil):
   pseudo: nonvalide
-  avatar: _avatar.png
+  avatar: /public/images/avatars/_avatar.png
   utilisateur: jeanbon

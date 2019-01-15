@@ -9,7 +9,6 @@ import models.dto.ProfilDto;
 import notifiers.Mails;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
-import util.Images;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static util.Images.*;
 import static util.ValidationStatus.MAIL_SENT;
 import static util.ValidationStatus.VALID;
 
@@ -61,7 +61,7 @@ public class UtilisateursService {
         return Utilisateur.find("email = ?1", email).first();
     }
 
-    public static Utilisateur getByUuid(String uuid){
+    public static Utilisateur getByUuid(String uuid) {
         Logger.debug("%s getByUuid : [%s]", LOG_PREFIX, uuid);
         return Utilisateur.findById(uuid);
     }
@@ -72,7 +72,7 @@ public class UtilisateursService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-        if (utilisateur.validationStatus !=MAIL_SENT){
+        if (utilisateur.validationStatus != MAIL_SENT) {
             throw new AccountAlreadyActivated();
         }
         ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
@@ -83,9 +83,9 @@ public class UtilisateursService {
             throw new BadValidationTokenException();
         } else {
             Profil profil = new Profil();
-            profil.utilisateur=utilisateur;
-            profil.avatar= Images.DEFAULT_AVATAR_NAME;
-            profil.pseudo= utilisateur.email.split("@")[0];
+            profil.utilisateur = utilisateur;
+            profil.avatar = IMG_BASE_PATH + IMG_AVATARS_PATH + DEFAULT_AVATAR_NAME;
+            profil.pseudo = utilisateur.email.split("@")[0];
             profil.save();
             utilisateur.validationStatus = VALID;
             utilisateur.save();
@@ -103,7 +103,7 @@ public class UtilisateursService {
         Mails.confirmerInscription(utilisateur);
     }
 
-    private static void createValidationToken(Utilisateur utilisateur){
+    private static void createValidationToken(Utilisateur utilisateur) {
         Logger.debug("%s createValidationToken : [%s]", LOG_PREFIX, utilisateur.email);
         ValidationToken validationToken = new ValidationToken();
         validationToken.dateCreation = Date.from(Instant.now());
@@ -113,7 +113,7 @@ public class UtilisateursService {
     public static List<ProfilDto> getListeProfils(Utilisateur utilisateur) {
         List<ProfilDto> profils = new ArrayList<>();
         ProfilDto profilDto = null;
-        for (Profil profil : utilisateur.profils){
+        for (Profil profil : utilisateur.profils) {
             profilDto = new ProfilDto();
             profilDto.pseudo = profil.pseudo;
             profilDto.avatar = profil.avatar;

@@ -6,9 +6,9 @@
         <div class="row">
         #{list items:profils, as:'profil'}
             <div class="card">
-                <a href="@{auth.Auth.changerProfilActif(profil.pseudo)}">
-                    <img src="/public/images/avatars/${profil.avatar}" class="card-img-top"
-                         alt="Avatar ${profil.pseudo}" height="50px">
+                <a href="@{auth.ProfilController.changerProfilActif(profil.pseudo)}">
+                    <img class="img-thumbnail" src="${profil.avatar}" class="card-img-top"
+                         alt="Avatar ${profil.pseudo}" width="50px">
                     <div class="card-body">
                         <h5 class="card-title">${profil.pseudo}</h5>
                     </div>
@@ -16,6 +16,6 @@
             </div>
         #{/list}
         </div>
-        <a href="@{auth.Profil.profils()}" class="btn">Gérer les profils</a>
+        <a href="@{controllers.auth.ProfilController.profils()}" class="btn">Gérer les profils</a>
     </div>
 </div>

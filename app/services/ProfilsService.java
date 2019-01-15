@@ -6,9 +6,7 @@ import models.dto.ProfilDto;
 import play.Logger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ProfilsService {
     public static final String LOG_PREFIX = "ProfilsService | ";
@@ -43,11 +41,4 @@ public class ProfilsService {
         return profilDtos;
     }
 
-    public static Map<String, String> getProfilsAsMap(List<Profil> profils) {
-        Map<String,String> profilsMap = new HashMap<>();
-        for(Profil profil:profils){
-            profilsMap.put(profil.pseudo,profil.avatar);
-        }
-        return profilsMap;
-    }
 }

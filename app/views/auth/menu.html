@@ -8,27 +8,29 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav ml-auto dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropDownMainMenu" data-toggle="dropdown">
-            #{if session.contains("profilActif")}}
-                <img height="30px" width="30px" src="/public/images/avatars/${profils.get(session.get("profilActif"))}">
+            <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropDownMainMenu"
+               data-toggle="dropdown">
+            #{if session.contains("profilActif")}
+                <img class="img-thumbnail" height="30px" width="30px" src="${session.get("avatarActif")}">
             #{/if}
             #{else}
                 Menu
             #{/else}
-            </button>
+            </a>
             <div class="dropdown-menu">
             #{if session.contains("profilActif")}
-                #{list profils.entrySet(), as:'profil'}
+                #{list items:profils, as:'profil'}
                     #{if !session.get("profilActif").equals(profil.pseudo)}
-                        <a class="dropdown-item" href="@{auth.Auth.changerProfilActif(profil.pseudo)}">
-                            <img height="30px" width="30px" src="/public/images/avatars/${profil.avatar}">
+                        <a class="dropdown-item"
+                           href="@{auth.ProfilController.changerProfilActif(profil.pseudo)}">
+                            <img class="img-thumbnail" height="30px" width="30px" src="${profil.avatar}">
                         ${profil.pseudo}
                         </a>
                     #{/if}
                 #{/list}
                 <div class="dropdown-divider"></div>
             #{/if}
-                <a class="dropdown-item" href="@{auth.Profil.profils()}">Gérer vos profils</a>
+                <a class="dropdown-item" href="@{auth.ProfilController.profils()}">Gérer vos profils</a>
                 <a class="dropdown-item" href="@{auth.Auth.gestionCompte()}">Compte & Abonnement</a>
                 <a class="dropdown-item" href="@{Secure.logout()}">Déconnexion</a>
             </div>

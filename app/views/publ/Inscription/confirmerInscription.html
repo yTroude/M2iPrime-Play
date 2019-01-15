@@ -1,7 +1,7 @@
 #{extends 'main.html'/}
 #{set title='Confirmation Inscription'/}
 
-<div class="carre"
+<div class="col">
 #{if flash.get('status').equals('OK')}
 <h1>Félicitations, votre compte est maintenant activé !</h1>
 <h4><a href="@{auth.Auth.index()}">Connexion</a></h4></br>
