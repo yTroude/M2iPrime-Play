@@ -17,8 +17,14 @@
 GET     /inscription                            publ.Inscription.formulaireInscription
 POST    /inscription/submit                     publ.Inscription.inscription
 GET     /inscription/confirm/{utilisateurUuid}/{validationTokenUuid}             publ.Inscription.confirmerInscription
+
 GET     /inscription/resentEmail                publ.Inscription.renvoiEmailActivationDeCompte
 POST    /inscription/resentEmail                publ.Inscription.renvoiEmailActivationDeCompte
+
+GET     /lostPassword                           publ.Publ.motDePassePerdu
+POST    /lostPassword/submit                    publ.Publ.sendResetPasswordEmail
+GET     /lostPassword/defineNewPassword/{passwordResetRequestUuid}/{validationTokenUuid}            publ.Publ.defineNewPassword
+POST    /lostPassword/defineNewPassword/submit     publ.Publ.validateNewPassword
 
 ######################
 # Authentified users #
@@ -28,7 +34,6 @@ POST    /inscription/resentEmail                publ.Inscription.renvoiEmailActi
 GET     /                                       auth.Auth.index
 GET     /inscription/fin                        auth.Inscription.formulaireFinInscription
 POST    /inscription/fin                        auth.Inscription.finirInscription
-
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
