@@ -24,7 +24,7 @@ POST    /inscription/resentEmail                publ.Inscription.renvoiEmailActi
 GET     /lostPassword                           publ.Publ.motDePassePerdu
 POST    /lostPassword/submit                    publ.Publ.sendResetPasswordEmail
 GET     /lostPassword/defineNewPassword/{passwordResetRequestUuid}/{validationTokenUuid}            publ.Publ.defineNewPassword
-POST    /lostPassword/defineNewPassword/submit     publ.Publ.resetPassword
+POST    /lostPassword/defineNewPassword/submit     publ.Publ.validateNewPassword
 
 ######################
 # Authentified users #

@@ -1,6 +1,5 @@
 package services;
 
-import models.Utilisateur;
 import models.ValidationToken;
 import play.Logger;
 
