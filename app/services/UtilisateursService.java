@@ -126,10 +126,11 @@ public class UtilisateursService {
     }
 
     public static void resetPassword(NewPasswordDto newPasswordDto) throws PasswordConfirmationException, BadUtilisateurException {
-        Logger.debug("%s resetPassword : [%s]", LOG_PREFIX, newPasswordDto.email);
+        Logger.debug("%s resetPassword : [%s]", LOG_PREFIX, newPasswordDto.passwordResetRequestUuid);
 
         //Verifications metier
-        if (getByEmail(newPasswordDto.email) == null) {
+        PasswordResetRequest passwordResetRequest = PasswordResetRequest.find("uuid = ?1", newPasswordDto.passwordResetRequestUuid).first();
+        if (getByEmail(passwordResetRequest.email) == null) {
             throw new BadUtilisateurException();
         }
         if (!newPasswordDto.password.equals(newPasswordDto.passwordConfirmation)) {
@@ -137,7 +138,7 @@ public class UtilisateursService {
         }
 
         //Affecter nouveau mot de passe à l'objet Utilisateur correspondant
-        Utilisateur utilisateur = getByEmail(newPasswordDto.email);
+        Utilisateur utilisateur = getByEmail(passwordResetRequest.email);
         utilisateur.password = BCrypt.hashpw(newPasswordDto.password, BCrypt.gensalt());
 
         //Enregistrer utilisateur

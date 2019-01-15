@@ -52,21 +52,23 @@ public class Publ extends TrackerController {
             motDePassePerdu();
         }
         System.out.println("defineNewPassword render()");
-        render();
+        render(passwordResetRequestUuid, validationTokenUuid);
     }
 
     public static void resetPassword(@Valid NewPasswordDto newPasswordDto){
         if(validation.hasErrors()){
             params.flash();
             validation.keep();
-//            defineNewPassword();
+            defineNewPassword(newPasswordDto.passwordResetRequestUuid, newPasswordDto.validationTokenUuid);
         }
         try {
             UtilisateursService.resetPassword(newPasswordDto);
         } catch (PasswordConfirmationException e) {
             flash.put("PasswordConfirmationException", "true");
+            defineNewPassword(newPasswordDto.passwordResetRequestUuid, newPasswordDto.validationTokenUuid);
         } catch (BadUtilisateurException e) {
             flash.put("BadUtilisateurException", "true");
+            motDePassePerdu();
         }
         render();
     }

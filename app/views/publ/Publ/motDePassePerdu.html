@@ -8,6 +8,9 @@
         #{if flash.get("lostPwd").equals("BadUtilisateurException")}
             <div>Aucun compte trouvé avec cette adresse email</div>
         #{/if}
+        #{if flash.get("BadUtilisateurException").equals("true")}
+            <div>Erreur. Veuillez renouveler votre demande de changement de mot de passe.</div>
+        #{/if}
         <form method="post" action="@{publ.Publ.sendResetPasswordEmail()}">
             <div class="form-group">
                 <label for="inputEmail">Email : </label>
