@@ -1,7 +1,62 @@
 # you describe your data using the YAML notation here
 # and then load them using Fixtures.load("data.yml")
 
-# User(bob):
+# User(ID):
 #   email: bob@gmail.com
 #   password: secret
 #   fullname: Bob
+
+########################################################################
+
+#ValidationToken
+ValidationToken(validationTokenMegabob):
+  dateCreation: 2019-01-09 12:23:14
+
+ValidationToken(validationTokenHubert):
+  dateCreation: 2018-12-08 08:45:25
+
+ValidationToken(validationTokenJeanBon):
+  dateCreation: 2019-01-15 23:59:57
+
+ValidationToken(validationPwdResetRequestInscrit):
+  dateCreation: 2019-01-10 10:30:02
+
+########################################################################
+
+#Utilisateur totalement inscrit
+Utilisateur(megabob):
+  email: inscrit@mail.com
+  pseudo: inscrit
+  dateNaissance: 1999-01-01 00:00:00
+  validationToken: validationTokenMegabob
+  valid: true
+  avatar: cat_0.png
+
+#Utilisateur inscrit, mail validé, pseudo/avatar non renseignés.
+Utilisateur(hubert):
+  email: valide@mail.com
+  dateNaissance: 1999-01-01 00:00:00
+  validationToken: validationTokenHubert
+  valid: true
+  avatar: _avatar.png
+
+#Utilisateur inscrit, mail non validé
+Utilisateur(jeanbon):
+  email: nonvalide@mail.com
+  dateNaissance: 1999-01-01 00:00:00
+  validationToken: validationTokenJeanBon
+  valid: false
+  avatar: _avatar.png
+
+########################################################################
+
+#PasswordResetRequest
+PasswordResetRequest(passwordResetRequestNonInscrit):
+  email : noninscrit@mail.com
+
+PasswordResetRequest(passwordResetRequestNonValide):
+  email : nonvalide@mail.com
+
+PasswordResetRequest(passwordResetRequestInscrit):
+  email : inscrit@mail.com
+  validationToken : validationPwdResetRequestInscrit
