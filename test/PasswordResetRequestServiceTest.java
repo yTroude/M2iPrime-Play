@@ -1,5 +1,5 @@
-import errors.AccountNotActivated;
-import errors.BadUtilisateurException;
+import errors.*;
+import models.PasswordResetRequest;
 import models.Utilisateur;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,15 +16,15 @@ public class PasswordResetRequestServiceTest extends UnitTest {
         Fixtures.deleteDatabase();
         Fixtures.loadModels("data.yml");
         Utilisateur u = UtilisateursService.getByEmail("inscrit@mail.com");
-        u.password= BCrypt.hashpw("123456",BCrypt.gensalt());
+        u.password = BCrypt.hashpw("123456", BCrypt.gensalt());
         u.save();
 
         u = UtilisateursService.getByEmail("valide@mail.com");
-        u.password= BCrypt.hashpw("123456",BCrypt.gensalt());
+        u.password = BCrypt.hashpw("123456", BCrypt.gensalt());
         u.save();
 
         u = UtilisateursService.getByEmail("nonvalide@mail.com");
-        u.password= BCrypt.hashpw("123456",BCrypt.gensalt());
+        u.password = BCrypt.hashpw("123456", BCrypt.gensalt());
         u.save();
     }
 
@@ -39,8 +39,7 @@ public class PasswordResetRequestServiceTest extends UnitTest {
         // Then
         if (utilisateur == null) {
             assertTrue(true);
-        }
-        else {
+        } else {
             assertFalse(true);
         }
     }
@@ -56,27 +55,34 @@ public class PasswordResetRequestServiceTest extends UnitTest {
         // Then
         if (utilisateur.valid == false) {
             assertTrue(true);
-        }
-        else {
+        } else {
             assertFalse(true);
         }
     }
 
-    @Test
-    public void testDefineNewPassword() {
-        // Given
-        String email = "inscrit@mail.com";
+//    @Test
+//    public void testDefineNewPassword() {
+//        // Given
+//        String passwordResetRequestUuid = "passwordResetRequestInscrit";
+//        String validationTokenUuid = "validationPwdResetRequestInscrit";
+//
+//        //Debug
+//        System.out.println(passwordResetRequestUuid);
+//        PasswordResetRequest passwordResetRequest = PasswordResetRequest.find("uuid = ?1", passwordResetRequestUuid).first();
+//        System.out.println(passwordResetRequest.uuid);
+//
+//        // When
+//        try {
+//            PasswordResetRequestService.defineNewPassword(passwordResetRequestUuid, validationTokenUuid);
+//            // Then
+//            assertTrue(true);
+//        } catch (BadValidationTokenException e) {
+//            assertFalse(true);
+//        } catch (ValidationTokenExpiredException e) {
+//            assertFalse(true);
+//        } catch (BadPasswordResetRequestException e) {
+//            assertFalse(true);
+//        }
+//    }
 
-        // When
-        try {
-            PasswordResetRequestService.sendResetPasswordEmail(email);
-        } catch (BadUtilisateurException e) {
-            assertFalse(true);
-        } catch (AccountNotActivated accountNotActivated) {
-            assertFalse(true);
-        }
-
-        // Then
-        assertTrue(true);
-    }
 }
