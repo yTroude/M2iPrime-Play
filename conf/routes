@@ -32,9 +32,19 @@ POST    /lostPassword/defineNewPassword/submit     publ.Publ.validateNewPassword
 
 # Welcome auth users page
 GET     /                                       auth.Auth.index
-GET     /inscription/fin                        auth.Inscription.formulaireFinInscription
-POST    /inscription/fin                        auth.Inscription.finirInscription
+GET     /profil/actif                           auth.ProfilController.choisirProfilActif
+GET     /profil/actif/{pseudo}                  auth.ProfilController.changerProfilActif
+GET     /profil                                 auth.ProfilController.profils
+GET     /compte                                 auth.Auth.gestionCompte
 
+<<<<<<< HEAD
+=======
+
+#########
+# Other #
+#########
+
+>>>>>>> origin/gestionProfils
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

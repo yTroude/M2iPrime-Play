@@ -6,13 +6,21 @@ import models.Utilisateur;
 import models.ValidationToken;
 import models.dto.InscriptionDto;
 import models.dto.NewPasswordDto;
+import models.Profil;
+import models.dto.ProfilDto;
 import notifiers.Mails;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import static util.Images.*;
+import static util.ValidationStatus.MAIL_SENT;
+import static util.ValidationStatus.VALID;
 
 public class UtilisateursService {
 
@@ -36,8 +44,8 @@ public class UtilisateursService {
         utilisateur.dateNaissance = inscriptionDto.dateNaissance;
         utilisateur.email = inscriptionDto.email;
         utilisateur.password = BCrypt.hashpw(inscriptionDto.password, BCrypt.gensalt());
-        utilisateur.valid = false;
-        utilisateur.avatar = "/public/images/avatars/_avatar.png";
+        utilisateur.validationStatus = MAIL_SENT;
+        utilisateur.profils = new ArrayList<>();
 
         //Token validation
         utilisateur.validationToken = ValidationTokenService.createValidationToken();
@@ -54,7 +62,7 @@ public class UtilisateursService {
         return Utilisateur.find("email = ?1", email).first();
     }
 
-    public static Utilisateur getByUuid(String uuid){
+    public static Utilisateur getByUuid(String uuid) {
         Logger.debug("%s getByUuid : [%s]", LOG_PREFIX, uuid);
         return Utilisateur.findById(uuid);
     }
@@ -65,7 +73,8 @@ public class UtilisateursService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-        if (utilisateur.valid){
+
+        if (utilisateur.validationStatus != MAIL_SENT) {
             throw new AccountAlreadyActivated();
         }
         ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
@@ -75,7 +84,12 @@ public class UtilisateursService {
         if (validationToken == null || validationToken.dateCreation.before(dateLimiteValidToken)) {
             throw new BadValidationTokenException();
         } else {
-            utilisateur.valid = true;
+            Profil profil = new Profil();
+            profil.utilisateur = utilisateur;
+            profil.avatar = IMG_BASE_PATH + IMG_AVATARS_PATH + DEFAULT_AVATAR_NAME;
+            profil.pseudo = utilisateur.email.split("@")[0];
+            profil.save();
+            utilisateur.validationStatus = VALID;
             utilisateur.save();
         }
     }
@@ -94,8 +108,6 @@ public class UtilisateursService {
         utilisateur.save();
         Mails.confirmerInscription(utilisateur);
     }
-
-
 
     public static void validateNewPassword(NewPasswordDto newPasswordDto) throws PasswordConfirmationException, BadUtilisateurException, BadPasswordResetRequestException {
         Logger.debug("%s validateNewPassword : [%s]", LOG_PREFIX, newPasswordDto.passwordResetRequestUuid);
@@ -120,7 +132,15 @@ public class UtilisateursService {
         utilisateur.save();
     }
 
-    public static Utilisateur getByPseudo(String pseudo) {
-        return Utilisateur.find("pseudo=?1",pseudo).first();
+    public static List<ProfilDto> getListeProfils(Utilisateur utilisateur) {
+        List<ProfilDto> profils = new ArrayList<>();
+        ProfilDto profilDto = null;
+        for (Profil profil : utilisateur.profils) {
+            profilDto = new ProfilDto();
+            profilDto.pseudo = profil.pseudo;
+            profilDto.avatar = profil.avatar;
+            profils.add(profilDto);
+        }
+        return profils;
     }
 }

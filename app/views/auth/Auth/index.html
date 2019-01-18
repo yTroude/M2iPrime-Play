@@ -1,11 +1,14 @@
-#{extends 'main.html' /}
+#{extends 'auth/menu.html' /}
 #{set title:'Welcome you authenticated people' /}
 
-<div class="carre">
-    <h1>M2iPrime</h1>
-    <h3>Connexion réussie : Welcome ${connectedUser.pseudo} !</h3>
-    <img src="/public/images/avatars/${connectedUser.avatar}" alt="${avatar}" width="100px" height="100px">
+<div class="col">
+    <h1 class="title">M2iPrime</h1>
+#{if session.contains("profilActif")}
+    <h3 class="title">Connexion réussie : Welcome ${session.get("profilActif")} !</h3>
+<h4 class="title ">Un jour, il y aura des vidéos ici. Mais pas aujourd'hui. Aujourd'hui, j'ai aquaponey.</h4>
+#{/if}
+#{else}
 
+#{/else}
 
-    <a href="@{Secure.logout()}">Déconnexion</a>
 </div>

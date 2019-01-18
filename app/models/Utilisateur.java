@@ -1,22 +1,22 @@
 package models;
 
 import util.UUIDModel;
+import util.ValidationStatus;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Utilisateur extends UUIDModel {
     @Column(nullable = false, unique = true)
     public String email;
-    public String pseudo;
     public Date dateNaissance;
     @OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
     public ValidationToken validationToken;
-    public boolean valid;
+    @Enumerated(EnumType.STRING)
+    public ValidationStatus validationStatus;
     public String password;
-    public String avatar;
+    @OneToMany(mappedBy = "utilisateur")
+    public List<Profil> profils;
 }

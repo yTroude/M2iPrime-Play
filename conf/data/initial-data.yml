@@ -3,14 +3,24 @@ Utilisateur(megabob):
   email: inscrit@mail.com
   pseudo: inscrit
   dateNaissance: 1999-01-01 00:00:00
-  valid: true
-  avatar: cat_0.png
+  validationStatus: VALID_AND_CONNECTED_ONCE
+Profil(megabob-profil):
+  pseudo: megabob
+  avatar: /public/images/avatars/cat_0.png
+  utilisateur: megabob
+Profil(megabob-profil-2):
+  pseudo: minibob
+  avatar: /public/images/avatars/cat_2.png
+  utilisateur: megabob
 #Utilisateur inscrit, mail validé, pseudo/avatar non renseignés.
 Utilisateur(hubert):
   email: valide@mail.com
   dateNaissance: 1999-01-01 00:00:00
-  valid: true
-  avatar: _avatar.png
+  validationStatus: VALID
+Profil(hubert-profil):
+  pseudo: valide
+  avatar: /public/images/avatars/_avatar.png
+  utilisateur: hubert
 #Utilisateur inscrit, mail non validé
 ValidationToken(validation):
   dateCreation: 2019-01-09 12:23:14
@@ -18,5 +28,8 @@ Utilisateur(jeanbon):
   email: nonvalide@mail.com
   dateNaissance: 1999-01-01 00:00:00
   validationToken: validation
-  valid: false
-  avatar: _avatar.png
+  validationStatus: MAIL_SENT
+Profil(jeanbon-profil):
+  pseudo: nonvalide
+  avatar: /public/images/avatars/_avatar.png
+  utilisateur: jeanbon
