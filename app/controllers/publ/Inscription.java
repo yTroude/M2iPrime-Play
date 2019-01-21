@@ -14,6 +14,7 @@ public class Inscription extends TrackerController {
     }
 
     public static void inscription(@Valid InscriptionDto inscriptionDto) {
+        System.out.println(inscriptionDto);
         if(validation.hasErrors()){
             params.flash();
             validation.keep();

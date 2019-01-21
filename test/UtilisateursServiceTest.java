@@ -1,11 +1,14 @@
 import errors.*;
+import models.PasswordResetRequest;
 import models.Utilisateur;
 import models.dto.InscriptionDto;
+import models.dto.NewPasswordDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 import play.test.Fixtures;
 import play.test.UnitTest;
+import services.PasswordResetRequestService;
 import services.UtilisateursService;
 
 import java.time.LocalDate;
@@ -97,25 +100,88 @@ public class UtilisateursServiceTest extends UnitTest {
         }
     }
 
-//    @Test
-//    public void testConfirmerUtilisateur(){
-//        //Given
-//        String utilisateurUuid = "jeanbon";
-//        String validationTokenUuid = "validationTokenJeanBon";
-//
-//        //When
-//        try {
-//            UtilisateursService.confirmerUtilisateur(utilisateurUuid, validationTokenUuid);
-//            //Then
-//            assertTrue(true);
-//        } catch (BadUtilisateurException e) {
-//            assertFalse(true);
-//        } catch (BadValidationTokenException e) {
-//            assertFalse(true);
-//        } catch (AccountAlreadyActivated accountAlreadyActivated) {
-//            assertFalse(true);
-//        }
-//    }
+    @Test
+    public void testConfirmerUtilisateur(){
+        //Given
+        Utilisateur jeanbon = UtilisateursService.getByEmail("nonvalide@mail.com");
+        String utilisateurUuid = jeanbon.uuid;
+        String validationTokenUuid = jeanbon.validationToken.uuid;
+
+        //When
+        try {
+            UtilisateursService.confirmerUtilisateur(utilisateurUuid, validationTokenUuid);
+            //Then
+            assertTrue(true);
+        } catch (BadUtilisateurException e) {
+            assertFalse(true);
+        } catch (BadValidationTokenException e) {
+            assertFalse(true);
+        } catch (AccountAlreadyActivated accountAlreadyActivated) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void testConfirmerUtilisateurBadUtilisateurException(){
+        //Given
+        Utilisateur jeanbon = UtilisateursService.getByEmail("nonvalide@mail.com");
+        String utilisateurUuid = "123";
+        String validationTokenUuid = jeanbon.validationToken.uuid;
+
+        //When
+        try {
+            UtilisateursService.confirmerUtilisateur(utilisateurUuid, validationTokenUuid);
+            //Then
+            assertFalse(true);
+        } catch (BadUtilisateurException e) {
+            assertTrue(true);
+        } catch (BadValidationTokenException e) {
+            assertFalse(true);
+        } catch (AccountAlreadyActivated accountAlreadyActivated) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void testConfirmerUtilisateurAccountAlreadyActivated(){
+        //Given
+        Utilisateur megabob = UtilisateursService.getByEmail("inscrit@mail.com");
+        String utilisateurUuid = megabob.uuid;
+        String validationTokenUuid = megabob.validationToken.uuid;
+
+        //When
+        try {
+            UtilisateursService.confirmerUtilisateur(utilisateurUuid, validationTokenUuid);
+            //Then
+            assertFalse(true);
+        } catch (BadUtilisateurException e) {
+            assertTrue(true);
+        } catch (BadValidationTokenException e) {
+            assertFalse(true);
+        } catch (AccountAlreadyActivated accountAlreadyActivated) {
+            assertTrue(true);
+        }
+    }
+    @Test
+    public void testConfirmerUtilisateurBadValidationTokenException(){
+        //Given
+        Utilisateur jeanbon = UtilisateursService.getByEmail("nonvalide@mail.com");
+        String utilisateurUuid = jeanbon.uuid;
+        String validationTokenUuid = "123";
+
+        //When
+        try {
+            UtilisateursService.confirmerUtilisateur(utilisateurUuid, validationTokenUuid);
+            //Then
+            assertFalse(true);
+        } catch (BadUtilisateurException e) {
+            assertTrue(true);
+        } catch (BadValidationTokenException e) {
+            assertTrue(true);
+        } catch (AccountAlreadyActivated accountAlreadyActivated) {
+            assertFalse(true);
+        }
+    }
 
     @Test
     public void testRenvoiEmailActivationDeCompte(){
@@ -135,7 +201,7 @@ public class UtilisateursServiceTest extends UnitTest {
     @Test
     public void testRenvoiEmailActivationDeCompteBadUtilisateurException(){
         //Given
-        String email = "toto@mail.com";
+        String email = "123@mail.com";
 
         //When
         try {
@@ -181,20 +247,89 @@ public class UtilisateursServiceTest extends UnitTest {
         }
     }
 
-//    @Test
-//    public void testGetByUuid(){
-//        //Given
-//        String uuid = "megabob";
-//
-//        //When
-//        Utilisateur utilisateur = UtilisateursService.getByUuid(uuid);
-//
-//        //Then
-//        if (utilisateur.uuid.equals(uuid)){
-//            assertTrue(true);
-//        }
-//        else {
-//            assertFalse(true);
-//        }
-//    }
+    @Test
+    public void testGetByUuid(){
+        //Given
+        Utilisateur tmp = UtilisateursService.getByPseudo("inscrit");
+
+        //When
+        Utilisateur utilisateur = UtilisateursService.getByUuid(tmp.uuid);
+
+        //Then
+        if (utilisateur.uuid.equals(tmp.uuid)){
+            assertTrue(true);
+        }
+        else {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void testValidateNewPassword(){
+        //Given
+        PasswordResetRequest megabobPwdResetRequest = PasswordResetRequestService.getByEmail("inscrit@mail.com");
+        NewPasswordDto newPasswordDto = new NewPasswordDto();
+        newPasswordDto.passwordResetRequestUuid = megabobPwdResetRequest.uuid;
+        newPasswordDto.validationTokenUuid = megabobPwdResetRequest.validationToken.uuid;
+        newPasswordDto.password = "666";
+        newPasswordDto.passwordConfirmation = "666";
+
+        //When
+        try {
+            UtilisateursService.validateNewPassword(newPasswordDto);
+            assertTrue(true);
+        } catch (PasswordConfirmationException e) {
+            assertFalse(true);
+        } catch (BadUtilisateurException e) {
+            assertFalse(true);
+        } catch (BadPasswordResetRequestException e) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void testValidateNewPasswordBadPasswordResetRequestException(){
+        //Given
+        PasswordResetRequest megabobPwdResetRequest = PasswordResetRequestService.getByEmail("inscrit@mail.com");
+        NewPasswordDto newPasswordDto = new NewPasswordDto();
+        newPasswordDto.passwordResetRequestUuid = "123";
+        newPasswordDto.validationTokenUuid = megabobPwdResetRequest.validationToken.uuid;
+        newPasswordDto.password = "666";
+        newPasswordDto.passwordConfirmation = "666";
+
+        //When
+        try {
+            UtilisateursService.validateNewPassword(newPasswordDto);
+            assertFalse(true);
+        } catch (PasswordConfirmationException e) {
+            assertFalse(true);
+        } catch (BadUtilisateurException e) {
+            assertFalse(true);
+        } catch (BadPasswordResetRequestException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void testValidateNewPasswordPasswordConfirmationException(){
+        //Given
+        PasswordResetRequest megabobPwdResetRequest = PasswordResetRequestService.getByEmail("inscrit@mail.com");
+        NewPasswordDto newPasswordDto = new NewPasswordDto();
+        newPasswordDto.passwordResetRequestUuid = megabobPwdResetRequest.uuid;
+        newPasswordDto.validationTokenUuid = megabobPwdResetRequest.validationToken.uuid;
+        newPasswordDto.password = "666";
+        newPasswordDto.passwordConfirmation = "000000";
+
+        //When
+        try {
+            UtilisateursService.validateNewPassword(newPasswordDto);
+            assertFalse(true);
+        } catch (PasswordConfirmationException e) {
+            assertTrue(true);
+        } catch (BadUtilisateurException e) {
+            assertFalse(true);
+        } catch (BadPasswordResetRequestException e) {
+            assertFalse(true);
+        }
+    }
 }

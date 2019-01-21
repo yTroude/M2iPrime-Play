@@ -14,6 +14,11 @@ public class PasswordResetRequestService {
 
     public static final String LOG_PREFIX = "PasswordResetRequestService | ";
 
+    public static PasswordResetRequest getByEmail(String email) {
+        Logger.debug("%s getByEmail : [%s]", LOG_PREFIX, email);
+        return PasswordResetRequest.find("email = ?1", email).first();
+    }
+
     public static void sendResetPasswordEmail(String email) throws BadUtilisateurException, AccountNotActivated {
         Logger.debug("%s reinitMotDePasse : [%s]", LOG_PREFIX, email);
         Utilisateur utilisateur = UtilisateursService.getByEmail(email);
@@ -53,8 +58,6 @@ public class PasswordResetRequestService {
         Calendar date = Calendar.getInstance();
         long t = date.getTimeInMillis();
         Date dateLimiteValidToken = new Date(t - FIVE_MINUTES_IN_MILLIS);
-        System.out.println("validationToken.dateCreation : " + validationToken.dateCreation);
-        System.out.println("dateLimiteValidToken : " + dateLimiteValidToken);
 
         if (validationToken == null) {
             throw new BadValidationTokenException();

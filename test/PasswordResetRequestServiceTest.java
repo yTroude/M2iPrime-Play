@@ -29,6 +29,23 @@ public class PasswordResetRequestServiceTest extends UnitTest {
     }
 
     @Test
+    public void testSendResetPasswordEmail() {
+        // Given
+        String email = "inscrit@mail.com";
+
+        // When
+        try {
+            PasswordResetRequestService.sendResetPasswordEmail(email);
+            //Then
+            assertTrue(true);
+        } catch (BadUtilisateurException e) {
+            assertFalse(true);
+        } catch (AccountNotActivated accountNotActivated) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
     public void testSendResetPasswordEmailBadUtilisateurException() {
         // Given
         String email = "noninscrit@mail.com";
@@ -60,29 +77,105 @@ public class PasswordResetRequestServiceTest extends UnitTest {
         }
     }
 
-//    @Test
-//    public void testDefineNewPassword() {
-//        // Given
-//        String passwordResetRequestUuid = "passwordResetRequestInscrit";
-//        String validationTokenUuid = "validationPwdResetRequestInscrit";
-//
-//        //Debug
-//        System.out.println(passwordResetRequestUuid);
-//        PasswordResetRequest passwordResetRequest = PasswordResetRequest.find("uuid = ?1", passwordResetRequestUuid).first();
-//        System.out.println(passwordResetRequest.uuid);
-//
-//        // When
-//        try {
-//            PasswordResetRequestService.defineNewPassword(passwordResetRequestUuid, validationTokenUuid);
-//            // Then
-//            assertTrue(true);
-//        } catch (BadValidationTokenException e) {
-//            assertFalse(true);
-//        } catch (ValidationTokenExpiredException e) {
-//            assertFalse(true);
-//        } catch (BadPasswordResetRequestException e) {
-//            assertFalse(true);
-//        }
-//    }
+    @Test
+    public void testDefineNewPassword() {
+        // Given
+        PasswordResetRequest megabobPwdResetRequest = PasswordResetRequestService.getByEmail("inscrit@mail.com");
+        String passwordResetRequestUuid = megabobPwdResetRequest.uuid;
+        String validationTokenUuid = megabobPwdResetRequest.validationToken.uuid;
+
+        // When
+        try {
+            PasswordResetRequestService.defineNewPassword(passwordResetRequestUuid, validationTokenUuid);
+            // Then
+            assertTrue(true);
+        } catch (BadValidationTokenException e) {
+            assertFalse(true);
+        } catch (ValidationTokenExpiredException e) {
+            assertFalse(true);
+        } catch (BadPasswordResetRequestException e) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void testDefineNewPasswordValidationTokenExpiredException() {
+        // Given
+        PasswordResetRequest megabobPwdResetRequest = PasswordResetRequestService.getByEmail("inscrit@mail.com");
+        String passwordResetRequestUuid = megabobPwdResetRequest.uuid;
+        String validationTokenUuid = megabobPwdResetRequest.validationToken.uuid;
+
+        // When
+        try {
+            PasswordResetRequestService.defineNewPassword(passwordResetRequestUuid, validationTokenUuid);
+            // Then
+            assertFalse(true);
+        } catch (BadValidationTokenException e) {
+            assertFalse(true);
+        } catch (ValidationTokenExpiredException e) {
+            assertTrue(true);
+        } catch (BadPasswordResetRequestException e) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void testDefineNewPasswordBadValidationTokenException() {
+        // Given
+        PasswordResetRequest megabobPwdResetRequest = PasswordResetRequestService.getByEmail("inscrit@mail.com");
+        String passwordResetRequestUuid = megabobPwdResetRequest.uuid;
+        String validationTokenUuid = "123";
+
+        // When
+        try {
+            PasswordResetRequestService.defineNewPassword(passwordResetRequestUuid, validationTokenUuid);
+            // Then
+            assertFalse(true);
+        } catch (BadValidationTokenException e) {
+            assertTrue(true);
+        } catch (ValidationTokenExpiredException e) {
+            assertFalse(true);
+        } catch (BadPasswordResetRequestException e) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void testDefineNewPasswordBadPasswordResetRequestException() {
+        // Given
+        PasswordResetRequest megabobPwdResetRequest = PasswordResetRequestService.getByEmail("inscrit@mail.com");
+        String passwordResetRequestUuid = "123";
+        String validationTokenUuid = megabobPwdResetRequest.validationToken.uuid;
+
+        // When
+        try {
+            PasswordResetRequestService.defineNewPassword(passwordResetRequestUuid, validationTokenUuid);
+            // Then
+            assertFalse(true);
+        } catch (BadValidationTokenException e) {
+            assertFalse(true);
+        } catch (ValidationTokenExpiredException e) {
+            assertFalse(true);
+        } catch (BadPasswordResetRequestException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void testGetByEmail(){
+        //Given
+        String email = "inscrit@mail.com";
+
+        //When
+        PasswordResetRequest passwordResetRequest = PasswordResetRequestService.getByEmail(email);
+
+        //Then
+        if (passwordResetRequest != null){
+            assertTrue(true);
+        }
+        else {
+            assertFalse(true);
+        }
+    }
 
 }
