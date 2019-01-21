@@ -22,7 +22,7 @@ public class PasswordResetRequestService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-        if (utilisateur.valid == false){
+        if (utilisateur.validationStatus.toString().equals("MAIL_SENT")){
             throw new AccountNotActivated();
         }
 
