@@ -6,6 +6,7 @@ import models.Utilisateur;
 import models.ValidationToken;
 import notifiers.Mails;
 import play.Logger;
+import util.ValidationStatus;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class PasswordResetRequestService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-        if (utilisateur.valid == false){
+        if (utilisateur.validationStatus == ValidationStatus.MAIL_SENT){
             throw new AccountNotActivated();
         }
 
