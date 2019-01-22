@@ -1,0 +1,39 @@
+#{extends 'main.html'/}
+#{set title='Confirmation Inscription'/}
+
+<div class="carre"
+#{if flash.get('status').equals('OK')}
+<h1>Félicitations, votre compte est maintenant activé !</h1>
+<h4><a href="@{auth.Auth.index()}">Connexion</a></h4></br>
+#{/if}
+
+
+#{if flash.get('status').equals('BadUtilisateur')}
+    <h1>Votre demande d'inscription n'a pas pu être prise en compte</h1>
+    <p>Si vous avez déjà rempli le formulaire d'inscription, veuillez saisir votre email</p>
+    <form method="post" action="@{publ.Inscription.renvoiEmailActivationDeCompte()}">
+        <div class="form-group">
+            <label for="inputEmail">Email : </label>
+            <input class="form-control" type="email" id="inputEmail" placeholder="Votre adresse email..." name="email">
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer un mail de validation</button>
+    </form>
+    <p>Si vous n'avez pas déjà rempli le formulaire d'inscription, c'est par ici => <a href="@{publ.Inscription.formulaireInscription()}">Inscription</a></p>
+#{/if}
+
+#{if flash.get('status').equals('BadValidationToken')}
+<h1>Votre demande d'inscription n'a pas pu être prise en compte</h1>
+<p>Le lien contenu dans le mail que vous avez reçu a probablement expiré. Chaque lien a une durée de validité de 24h.</br>
+    <a href="@{publ.Inscription.renvoiEmailActivationDeCompte(flash.get('utilisateurEmail'))}">Renvoyer un mail de validation</a>
+</p>
+#{/if}
+
+#{if flash.get('status').equals('AccountAlreadyActivated')}
+<h1>Votre compte est déjà activé !</h1>
+<p>
+    <a href="@{auth.Auth.index()}">Youpi ! Je me connecte tout de suite !</a>
+</p>
+#{/if}
+
+
+</div>

@@ -20,25 +20,14 @@ public class ApiController extends TrackerController {
 
     public static void allVideos(){
         List<Video> videos = VideoService.findAll();
-        renderJSON(videos);
+        renderJSON(videos, ActeurAdapter.get());
     }
 
-   /* public static void allFilms(){
-        Logger.info("allFilms");
-        List<Video> videos = VideoService.findAllFilms();
-        Logger.debug("Films : %d", videos.size());
-        renderJSON(videos);
-    }
 
-    public static void allSeries(){
-        List<Video>videos = VideoService.findAllSeries();
-        renderJSON(videos);
-    }
-*/
 
    public static void filterByFormat(String format){
        List<Video>videos = VideoService.findVideoByFormat(format);
-       renderJSON(videos);
+       renderJSON(videos, ActeurAdapter.get());
    }
 
     public static void detailsVideo(String uuid){
@@ -47,8 +36,8 @@ public class ApiController extends TrackerController {
     }
 
 
-    public static void ajouterVideo(String titre, String desc, String categorie, String format){
-        VideoService.addVideo(titre,desc,categorie, format);
+    public static void ajouterVideo(String titre, String desc, String categorie, String format, String image){
+        VideoService.addVideo(titre,desc,categorie, format, image);
         Http.Response.current().status=Http.StatusCode.CREATED;
     }
 
@@ -58,16 +47,7 @@ public class ApiController extends TrackerController {
         renderJSON(videos);
     }
 
-   /* public static void allFilmsByCategorie(String categorie){
-        List<Video>videos = VideoService.findFilmsByCategorie(categorie);
-        renderJSON(videos);
-    }
 
-    public static void allSeriesByCategorie(String categorie){
-        List<Video>videos = VideoService.findSeriesByCategorie(categorie);
-        renderJSON(videos);
-    }
-*/
    public static void filterByFormatAndCategorie(String format, String categorie){
        List<Video> videos = VideoService.findVideoByFormatAndCategorie(format, categorie);
        renderJSON(videos);

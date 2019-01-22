@@ -21,18 +21,7 @@ public class VideoService {
         return films ;
     }
 
-   /* public static List<Video> findAllFilms(){
 
-        List<Video> films = Video.find("format=?1","film").fetch();
-        return films ;
-    }
-
-    public static List<Video> findAllSeries(){
-
-        List<Video>series = Video.find("format=?1","serie").fetch();
-        return series;
-    }
-*/
 
     public static List<Video> findVideosByCategorie(String categorie){
         Logger.debug("%s findVideosByCategorie : [%s ]", LOG_PREFIX, categorie);
@@ -40,27 +29,16 @@ public class VideoService {
         return video;
     }
 
-    public static void addVideo(String titre, String desc, String categorie, String format){
+    public static void addVideo(String titre, String desc, String categorie, String format, String image){
         Video video = new Video();
         video.desc = desc;
         video.categorie = categorie;
         video.titre = titre;
         video.format = format;
+        video.image = image;
         video.save();
     }
 
-    public static List<Video> findFilmsByCategorie(String categorie){
-        Logger.debug("%s findFilmsByCategorie : [%s ]", LOG_PREFIX, categorie);
-        List<Video>video = Video.find("categorie=?1 AND format=?2",categorie,"film").fetch();
-        System.out.println("plop");
-        return video;
-    }
-
-
-    public static List<Video> findSeriesByCategorie(String categorie){
-        List<Video>video = Video.find("categorie=?1 AND format=?2",categorie,"serie").fetch();
-        return video;
-    }
 
     public static Video getVideoByUuid(String uuid){
 

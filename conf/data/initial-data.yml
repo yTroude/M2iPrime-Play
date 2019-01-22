@@ -1,42 +1,136 @@
-Video(fast and furious):
+#Utilisateur totalement inscrit
+Utilisateur(megabob):
+  email: inscrit@mail.com
+  pseudo: inscrit
+  dateNaissance: 1999-01-01 00:00:00
+  valid: true
+  avatar: cat_0.png
+#Utilisateur inscrit, mail validé, pseudo/avatar non renseignés.
+Utilisateur(hubert):
+  email: valide@mail.com
+  dateNaissance: 1999-01-01 00:00:00
+  valid: true
+  avatar: _avatar.png
+#Utilisateur inscrit, mail non validé
+ValidationToken(validation):
+  dateCreation: 2019-01-09 12:23:14
+Utilisateur(jeanbon):
+  email: nonvalide@mail.com
+  dateNaissance: 1999-01-01 00:00:00
+  validationToken: validation
+  valid: false
+  avatar: _avatar.png
+
+Acteur(Vin-Diesel):
+  nomActeur: Diesel
+  prenomActeur: Vin
+
+Acteur(Benjamin-Maillet):
+  nomActeur: Maillet
+  prenomActeur: Benjamin
+
+Acteur(Paul-Walker):
+  nomActeur: Walker
+  prenomActeur: Paul
+
+Video(fast-and-furious):
   titre: fast and furious
   desc: cars, crime and more
   categorie: action
   format: film
-  acteurs: Vin Diesel
-  uuid: 123
+  image: https://images-na.ssl-images-amazon.com/images/I/51iceScsERL._SY445_.jpg
+  acteurs: [Vin-Diesel]
 
-Video(fast and furious 2):
+Video(fast-and-furious-2):
   titre: fast and furious 2
   desc: cars, crime and more
   categorie: action
   format: film
-  acteurs:
-  -Vin Diesel
-  -Paul Walker
-  -Benjamin Maillet
-  uuid: 124
-
-Acteur (Vin Diesel):
-  nomActeur: Diesel
-  prenomActeur: Vin
-  uuid : aaa
-  videos:
-    -fast and furious
-    -fast and furious 2
-Acteur (Benjamin Maillet):
-    nomActeur: Maillet
-    prenomActeur: Benjamin
-    uuid: bbb
-    videos:
-      -fast and furious 2
-
-Acteur (Paul Walker):
-  nomActeur: Walker
-  prenomActeur: Paul
-  uuid: zzz
-  videos:
-    -fast and furious 2
+  image: http://fr.web.img4.acsta.net/medias/nmedia/18/35/08/06/af.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
 
 
+Video(fast-and-furious-3):
+  titre: fast and furious 3
+  desc: cars, crime and more
+  categorie: action
+  format: film
+  image: https://www.avoir-alire.com/IMG/arton8416.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
 
+
+Video(fast-and-furious-4):
+  titre: fast and furious 4
+  desc: cars, crime and more
+  categorie: action
+  format: film
+  image: https://images-na.ssl-images-amazon.com/images/I/41GgDpsO9cL.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
+Video(The Big bang theory):
+  titre: The Big bang theory
+  desc: cars, crime and more
+  categorie: comedie
+  format: serie
+  image: http://fr.web.img5.acsta.net/pictures/18/11/06/15/36/0408812.jpg
+  acteurs: [Vin-Diesel]
+
+Video(Friends):
+  titre: Friends
+  desc: cars, crime and more
+  categorie: action
+  format: serie
+  image: https://images.indianexpress.com/2017/09/23-years-of-friends.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
+
+Video(House):
+  titre: house
+  desc: cars, crime and more
+  categorie: drame
+  format: serie
+  image: https://files.newsnetz.ch/story/2/7/8/27870913/3/topelement.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
+
+Video(the good doctor):
+  titre: the good doctor
+  desc: cars, crime and more
+  categorie: drame
+  format: serie
+  image: https://i.ytimg.com/sh/UWe8kS6TWBZ9mUFDOi76BQ/market.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
+Video(wild animals):
+  titre: wild animals
+  desc: cars, crime and more
+  categorie: animaux
+  format: documentaire
+  image: http://r.ddmcdn.com/w_830/s_f/o_1/cx_98/cy_0/cw_640/ch_360/APL/uploads/2015/07/cecil-AP463227356214-1000x400.jpg
+  acteurs: [Vin-Diesel]
+
+Video(chateaux de France):
+  titre: chateaux de France
+  desc: cars, crime and more
+  categorie: histoire
+  format: documentaire
+  image: http://chateaudevallagon.fr/wp-content/uploads/2018/02/a..jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
+
+Video(Cuisine chez toi):
+  titre: Cuisine chez toi
+  desc: cars, crime and more
+  categorie: cuisine
+  format: documentaire
+  image: https://www.fourniresto.com/blog/wp-content/uploads/2017/05/cuisine.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
+
+Video(l'espace):
+  titre: l'espace
+  desc: cars, crime and more
+  categorie: science
+  format: documentaire
+  image: https://www.espritsciencemetaphysiques.com/wp-content/uploads/2015/02/e51910d394f92961feb251aac443bb39-l1.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]

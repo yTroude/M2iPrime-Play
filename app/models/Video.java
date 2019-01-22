@@ -15,6 +15,7 @@ public class Video extends UUIDModel {
     public String desc;
     public String categorie;
     public String format;
+    public String image;
 
     @ManyToMany
     public List<Acteur>acteurs;
