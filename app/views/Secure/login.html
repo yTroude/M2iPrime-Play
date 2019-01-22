@@ -4,7 +4,12 @@
 <div class="col">
     *{<h1 class="titre" >M2iPrime</h1>}*
     <p class="logo"><img style="height: 100px" src="@{'/public/images/logo.png'}" alt="Photo de M2iPrime"></p>
-    <h2 class="titre">Connexion</h2>
+
+    #{if flash.get("DeletedAccount").equals("true")}
+        <div>Votre compte bien été supprimé. Vous serez toujours le bienvenu si vous voulez revenir ;-)</div>
+    #{/if}
+
+        <h2 class="titre">Connexion</h2>
 
 *{Champs : mail password }*
     #{form @authenticate()}

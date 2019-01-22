@@ -1,21 +1,29 @@
-#{extends '../menu.html' /}
+#{extends 'auth/menu.html'/}
 #{set title:'Compte & Abonnement' /}
 
 <div class="col">
-    <h1 class="title">M2iPrime</h1>
+    <h1 class="title">Compte et Abonnement</h1>
     #{if session.contains("profilActif")}
         <h3 class="title">${session.get("profilActif")}</h3>
     #{/if}
     #{else}
     #{/else}
 
-    <h4 class="title ">Compte et Abonnement</h4>
-
     <form id="myForm" class="col" action="@{auth.AccountController.deleteAccount()}" method="post">
         <h5 class="titre">Supprimer le compte</h5>
 
+        #{if flash.get("WrongPasswordException").equals("true")}
+            <div>Mauvais mot de passe</div>
+        #{/if}
+        #{if flash.get("PasswordConfirmationException").equals("true")}
+            <div>Les deux mots de passe ne correspondent pas</div>
+        #{/if}
+        #{if flash.get("BadUtilisateurException").equals("true")}
+            <div>Erreur, compte introuvable. Veuillez vous déconnecter et tenter de vous reconnecter.</div>
+        #{/if}
+
         <label class="ask" for="inputEmail">Adresse Email</label>
-        <input id="inputEmail" name="deleteAccountDto.email" value="${flash['deleteAccountDto.email']}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Ton adresse e-mail ..." required>
+        <input id="inputEmail" name="deleteAccountDto.email" value="${connectedUser.email}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Ton adresse e-mail ..." readonly>
 
         <label class="ask" for="inputPassword">Mot de passe</label>
         <input id="inputPassword" name="deleteAccountDto.password" type="password" placeholder="Ton mot de passe avec 3 caractères minimum ..." minlength="3" maxlength="255" required>

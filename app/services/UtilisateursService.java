@@ -5,6 +5,7 @@ import models.PasswordResetRequest;
 import models.Profil;
 import models.Utilisateur;
 import models.ValidationToken;
+import models.dto.DeleteAccountDto;
 import models.dto.InscriptionDto;
 import models.dto.NewPasswordDto;
 import models.dto.ProfilDto;
@@ -140,5 +141,26 @@ public class UtilisateursService {
             profils.add(profilDto);
         }
         return profils;
+    }
+
+    public static void deleteAccount(DeleteAccountDto deleteAccountDto) throws WrongPasswordException, PasswordConfirmationException, BadUtilisateurException {
+        Logger.debug("%s deleteAccount : [%s]", LOG_PREFIX, deleteAccountDto.email);
+        Utilisateur utilisateur = getByEmail(deleteAccountDto.email);
+        if (utilisateur.email == null){
+            System.out.printf("BadUtilisateurException");
+            throw new BadUtilisateurException();
+        }
+        if (!deleteAccountDto.password.equals(deleteAccountDto.passwordConfirmation)){
+            System.out.printf("PasswordConfirmationException");
+            throw new PasswordConfirmationException();
+        }
+        if (!deleteAccountDto.password.equals(utilisateur.password)){
+            System.out.println(deleteAccountDto.password);
+            System.out.println(utilisateur.password);
+            System.out.printf("WrongPasswordException");
+            throw new WrongPasswordException();
+        }
+        System.out.println("deleting " + utilisateur.email);
+        utilisateur.delete();
     }
 }
