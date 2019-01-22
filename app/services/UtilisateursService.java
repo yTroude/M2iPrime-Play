@@ -1,19 +1,13 @@
 package services;
 
 import errors.*;
-<<<<<<< HEAD
+import models.PasswordResetRequest;
 import models.Profil;
 import models.Utilisateur;
 import models.ValidationToken;
 import models.dto.InscriptionDto;
-import models.dto.ProfilDto;
-=======
-import models.PasswordResetRequest;
-import models.Utilisateur;
-import models.ValidationToken;
-import models.dto.InscriptionDto;
 import models.dto.NewPasswordDto;
->>>>>>> origin/feature_LostPassword
+import models.dto.ProfilDto;
 import notifiers.Mails;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
@@ -79,11 +73,7 @@ public class UtilisateursService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-<<<<<<< HEAD
         if (utilisateur.validationStatus != MAIL_SENT) {
-=======
-        if (utilisateur.valid){
->>>>>>> origin/feature_LostPassword
             throw new AccountAlreadyActivated();
         }
         ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
@@ -117,16 +107,6 @@ public class UtilisateursService {
         utilisateur.save();
         Mails.confirmerInscription(utilisateur);
     }
-
-<<<<<<< HEAD
-    private static void createValidationToken(Utilisateur utilisateur) {
-        Logger.debug("%s createValidationToken : [%s]", LOG_PREFIX, utilisateur.email);
-        ValidationToken validationToken = new ValidationToken();
-        validationToken.dateCreation = Date.from(Instant.now());
-        utilisateur.validationToken = validationToken;
-=======
-
-
     public static void validateNewPassword(NewPasswordDto newPasswordDto) throws PasswordConfirmationException, BadUtilisateurException, BadPasswordResetRequestException {
         Logger.debug("%s validateNewPassword : [%s]", LOG_PREFIX, newPasswordDto.passwordResetRequestUuid);
 
@@ -148,7 +128,6 @@ public class UtilisateursService {
 
         //Enregistrer utilisateur
         utilisateur.save();
->>>>>>> origin/feature_LostPassword
     }
 
     public static List<ProfilDto> getListeProfils(Utilisateur utilisateur) {
