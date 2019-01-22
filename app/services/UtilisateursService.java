@@ -1,16 +1,23 @@
 package services;
 
 import errors.*;
+<<<<<<< HEAD
 import models.Profil;
 import models.Utilisateur;
 import models.ValidationToken;
 import models.dto.InscriptionDto;
 import models.dto.ProfilDto;
+=======
+import models.PasswordResetRequest;
+import models.Utilisateur;
+import models.ValidationToken;
+import models.dto.InscriptionDto;
+import models.dto.NewPasswordDto;
+>>>>>>> origin/feature_LostPassword
 import notifiers.Mails;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -47,7 +54,7 @@ public class UtilisateursService {
         utilisateur.profils = new ArrayList<>();
 
         //Token validation
-        createValidationToken(utilisateur);
+        utilisateur.validationToken = ValidationTokenService.createValidationToken();
 
         //Enregistrer utilisateur
         utilisateur.save();
@@ -72,7 +79,11 @@ public class UtilisateursService {
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
+<<<<<<< HEAD
         if (utilisateur.validationStatus != MAIL_SENT) {
+=======
+        if (utilisateur.valid){
+>>>>>>> origin/feature_LostPassword
             throw new AccountAlreadyActivated();
         }
         ValidationToken validationToken = ValidationToken.find("uuid = ?1", validationTokenUuid).first();
@@ -94,20 +105,50 @@ public class UtilisateursService {
 
     public static void renvoiEmailActivationDeCompte(String email) throws BadUtilisateurException {
         Logger.debug("%s renvoiEmailActivationDeCompte : [%s]", LOG_PREFIX, email);
+
+        //Vérifier que le compte existe
         Utilisateur utilisateur = UtilisateursService.getByEmail(email);
         if (utilisateur == null) {
             throw new BadUtilisateurException();
         }
-        createValidationToken(utilisateur);
+
+        //Générer un token de validation, save en BDD, envoyer l'email d'activation de compte
+        utilisateur.validationToken = ValidationTokenService.createValidationToken();
         utilisateur.save();
         Mails.confirmerInscription(utilisateur);
     }
 
+<<<<<<< HEAD
     private static void createValidationToken(Utilisateur utilisateur) {
         Logger.debug("%s createValidationToken : [%s]", LOG_PREFIX, utilisateur.email);
         ValidationToken validationToken = new ValidationToken();
         validationToken.dateCreation = Date.from(Instant.now());
         utilisateur.validationToken = validationToken;
+=======
+
+
+    public static void validateNewPassword(NewPasswordDto newPasswordDto) throws PasswordConfirmationException, BadUtilisateurException, BadPasswordResetRequestException {
+        Logger.debug("%s validateNewPassword : [%s]", LOG_PREFIX, newPasswordDto.passwordResetRequestUuid);
+
+        //Verifications metier
+        PasswordResetRequest passwordResetRequest = PasswordResetRequest.find("uuid = ?1", newPasswordDto.passwordResetRequestUuid).first();
+        if (passwordResetRequest == null){
+            throw new BadPasswordResetRequestException();
+        }
+        if (getByEmail(passwordResetRequest.email) == null) {
+            throw new BadUtilisateurException();
+        }
+        if (!newPasswordDto.password.equals(newPasswordDto.passwordConfirmation)) {
+            throw new PasswordConfirmationException();
+        }
+
+        //Affecter nouveau mot de passe à l'objet Utilisateur correspondant
+        Utilisateur utilisateur = getByEmail(passwordResetRequest.email);
+        utilisateur.password = BCrypt.hashpw(newPasswordDto.password, BCrypt.gensalt());
+
+        //Enregistrer utilisateur
+        utilisateur.save();
+>>>>>>> origin/feature_LostPassword
     }
 
     public static List<ProfilDto> getListeProfils(Utilisateur utilisateur) {

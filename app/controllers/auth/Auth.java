@@ -32,4 +32,5 @@ public class Auth extends TrackerController {
     public static void gestionCompte() {
         render();
     }
+
 }
