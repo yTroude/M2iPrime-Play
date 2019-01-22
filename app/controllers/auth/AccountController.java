@@ -1,4 +1,10 @@
 package controllers.auth;
 
-public class AccountController {
+import controllers.TrackerController;
+
+public class AccountController extends TrackerController {
+
+    public void deleteAccount(){
+
+    }
 }

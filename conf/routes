@@ -36,7 +36,7 @@ GET     /profil/actif                           auth.ProfilController.choisirPro
 GET     /profil/actif/{pseudo}                  auth.ProfilController.changerProfilActif
 GET     /profil                                 auth.ProfilController.profils
 POST    /profil/modifier                        auth.ProfilController.modifierProfil
-GET     /compte                                 auth.Auth.gestionCompte
+GET     /compte                                 auth.AccountController.gestionCompte
 POST    /compte/delete/submit                   auth.AccountController.deleteAccount
 POST    /compte/changeEmail/submit              auth.AccountController.changeEmail
 
