@@ -1,10 +1,11 @@
 $(document).ready(function () {
 
     //Gestion de la soumission du formulaire
-    $('#submit-profil').click(function () {
-        if($('.actif').first().hasClass())
+    $('#profilForm').submit(function () {
+        $('#oldPseudoInput').attr('value',
+            $('.actif').first().attr('id'));
+        return true;
     });
-
     //Gestion de l'affichage du formulaire de modification de profil
     $('.select-profile').click(function () {
         var elem = $(this);

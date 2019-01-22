@@ -1,10 +1,6 @@
 #{extends 'auth/menu.html'/}
 #{set title:"Gestion de vos profils"/}
 
-<script type="text/javascript">
-    const CIBLE_FORMULAIRE_CREATION = @{auth.ProfilController.creerProfil()};
-    const CIBLE_FORMULAIRE_MISE_A_JOUR = @{auth.ProfilController.mettreAJourProfil()};
-</script>
 <div class="row">
 #{list items:profils, as:'profil'}
     <div class="card">
@@ -15,7 +11,7 @@
 #{/list}
 #{if profils.size()<4}
     <div class="card">
-        <button class="btn btn-primary create-profile">
+        <button id='createProfil' class="btn btn-primary create-profile">
             <img src="${util.Images.IMG_BASE_PATH}/addProfile.png" width="50px" height="50px">
         </button>
     </div>
@@ -23,7 +19,7 @@
 </div>
 <div class="collapse" id="profil-collapse" tabindex="-1">
     <div class="card card-body col">
-        <form>
+        <form id="profilForm" method="post" action="@{auth.ProfilController.modifierProfil()}">
             <input id="pseudoInput" type="text" value="" name="pseudo">
             <div class="row">
             #{list items:util.Images.avatars, as:'avatar'}
@@ -35,10 +31,13 @@
                 </label>
             #{/list}
             </div>
-            <button id="submit-profil" class="btn btn-primary float-right" type="submit">Cliquez moi</button>
+            <input id="oldPseudoInput" type="hidden" name="oldPseudo" value="">
+            <button id="modifierProfilSubmit" class="btn btn-primary float-right" type="submit">Cliquez moi</button>
         </form>
     </div>
 </div>
+
+
 #{set 'moreScripts'}
     #{get 'moreScripts'/}}
     #{script 'gestionProfils.js'/}
