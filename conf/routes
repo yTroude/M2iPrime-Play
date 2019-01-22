@@ -30,6 +30,8 @@ GET     /profil/actif                           auth.ProfilController.choisirPro
 GET     /profil/actif/{pseudo}                  auth.ProfilController.changerProfilActif
 GET     /profil                                 auth.ProfilController.profils
 GET     /compte                                 auth.Auth.gestionCompte
+POST    /compte/delete/submit                   auth.AccountController.deleteAccount
+POST    /compte/changeEmail/submit              auth.AccountController.changeEmail
 
 
 #########
