@@ -5,11 +5,11 @@ Utilisateur(megabob):
   dateNaissance: 1999-01-01 00:00:00
   validationStatus: VALID_AND_CONNECTED_ONCE
 Profil(megabob-profil):
-  pseudo: megabob
+  pseudo: Arthur
   avatar: /public/images/avatars/cat_0.png
   utilisateur: megabob
 Profil(megabob-profil-2):
-  pseudo: minibob
+  pseudo: Roger
   avatar: /public/images/avatars/cat_2.png
   utilisateur: megabob
 #Utilisateur inscrit, mail validé, pseudo/avatar non renseignés.

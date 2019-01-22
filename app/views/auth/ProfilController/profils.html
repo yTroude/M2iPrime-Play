@@ -4,14 +4,41 @@
 <div class="row">
 #{list items:profils, as:'profil'}
     <div class="card">
-        <button class="btn btn-primary" data-toggle="collapse" data-target="#${profil.pseudo}Collapse">
-            <img class="img-thumbnail" src="${profil.avatar}"/>
+        <button id="${profil.pseudo}" class="btn btn-primary select-profile">
+            <img id="${profil.avatar}" class="img-thumbnail" src="${profil.avatar}" width="50px" height="50px"/>
         </button>
-        <div class="collapse" id="${profil.pseudo}Collapse" tabindex="-1">
-            <div class="card card-body">
-
-            </div>
-        </div>
     </div>
 #{/list}
+#{if profils.size()<4}
+    <div class="card">
+        <button id='createProfil' class="btn btn-primary create-profile">
+            <img src="${util.Images.IMG_BASE_PATH}/addProfile.png" width="50px" height="50px">
+        </button>
+    </div>
+#{/if}
 </div>
+<div class="collapse" id="profil-collapse" tabindex="-1">
+    <div class="card card-body col">
+        <form id="profilForm" method="post" action="@{auth.ProfilController.modifierProfil()}">
+            <input id="pseudoInput" type="text" value="" name="pseudo">
+            <div class="row">
+            #{list items:util.Images.avatars, as:'avatar'}
+                <label>
+                    <input class="avatarInput" type="radio" name="avatar"
+                           value="${util.Images.IMG_BASE_PATH+util.Images.IMG_AVATARS_PATH+avatar}"/>
+                    <img src="${util.Images.IMG_BASE_PATH+util.Images.IMG_AVATARS_PATH+avatar}"
+                         class="img-thumbnail" width="50px" height="50px">
+                </label>
+            #{/list}
+            </div>
+            <input id="oldPseudoInput" type="hidden" name="oldPseudo" value="">
+            <button id="modifierProfilSubmit" class="btn btn-primary float-right" type="submit">Cliquez moi</button>
+        </form>
+    </div>
+</div>
+
+
+#{set 'moreScripts'}
+    #{get 'moreScripts'/}}
+    #{script 'gestionProfils.js'/}
+#{/set}
