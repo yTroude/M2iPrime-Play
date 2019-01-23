@@ -1,38 +1,112 @@
 #{extends 'main.html'/}
-<div>
-    <h2>yo</h2><br>
+#{barreMenu /}
 
 
-    yoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+<div class="containermain">
+    <div class="list">
+        <h3 class="title">Film</h3>
+        <div id="container" class="frontnaviga list-items">
+*{            <div  class="item">
+                <img id="film1" class="contentminiature pos1" src="./lib/film1.jpg" alt="Film1"/>
+                <label for="film1" href="#" class="filmnavig pos1">Filmographie1 <br>voir2</label>
+                <!--<p  href="#">Filmographie1 voir2</p>-->
+            </div>
+            <div class="item">
+                <img id="film2" class="contentminiature pos2" src="./lib/film2.jpg" alt="Film2"/>
+                <label for="film2" href="#" class="filmnavig pos2">Filmographie1<br> voir2</label>
+            </div>
+            <div  class="item">
+                <img id="film3" class="contentminiature pos3" src="./lib/film3.jpg" alt="Film3"/>
+                <label for="film3" href="#" class="filmnavig pos3">Filmographie1<br> voir2</label>
+            </div>
+            <div class="item">
+                <img id="film4" class="contentminiature pos4" src="./lib/film4.jpg" alt="Film4"/>
+                <label for="film4" href="#" class="filmnavig pos4">Filmographie1<br> voir2</label>
+            </div>
+            <div class="item">
+                <img id="filmflou"  class="contentminiature pos5" src="./lib/film5.jpg" alt="Film5"/>
+                <label for="filmflou" href="#" class="filmnavig pos5">Filmographie1<br> voir2</label>
+            </div>}*
+        </div>
+    </div>
+</div>
 
+<div  class="containermain">
+    <div class="list">
+        <h3 class="title">Série</h3>
+        <div id="container2" class="frontnaviga list-items">
+*{            <div class="item">
+                 <img id="serie1" class="contentminiature pos1" src="./lib/serie1.jpg" alt="Serie1"/>
+                <label for="serie1" href="#" class="filmnavig pos1">Filmographie1<br> voir2</label>
+            </div>
+            <div class="item">
+                <img id="serie2" class="contentminiature pos2" src="./lib/serie2.jpg" alt="Serie2"/>
+                <label for="serie2" href="#" class="filmnavig pos2">Filmographie1 <br>voir2</label>
 
-    <button onclick="plop()">toto</button>
+            </div>
+            <div class="item">
+                <img id="serie3" class="contentminiature pos3" src="./lib/serie3.jpg" alt="Serie3"/>
+                <label for="serie3" href="#" class="filmnavig pos3">Filmographie1 <br>voir2</label>
+            </div>
+            <div class="item">
+                <img id="serie4" class="contentminiature pos4" src="./lib/serie4.jpg" alt="Serie4"/>
+                <label for="serie4" href="#" class="filmnavig pos4">Filmographie1 <br>voir2</label>
 
+            </div>
+            <div class="item">
+                <img id="serieflou" class="contentminiature pos5" src="./lib/serie5.jpg" alt="Serie5"/>
+                <label for="serieflou" href="#" class="filmnavig pos5">Filmographie1 <br>voir2</label>
+            </div>}*
+        </div>
+    </div>
+</div>
 
+<div  class="containermain">
+    <div class="list">
+        <h3 class="title">Documentaire</h3>
+        <div id="container3" class="frontnaviga list-items">
+*{            <div id="container3" class="item">
+                <img id="doc1" class="contentminiature pos1" src="./lib/documentary1.jpg" alt="Documentaire1"/>
+                <label for="doc1" href="#" class="filmnavig pos1">Filmographie1 <br>voir2</label>
+            </div>
+            <div class="item">
+                <img id="doc2" class="contentminiature pos2" src="./lib/documentary2.jpg" alt="Documentaire2"/>
+                <label for="doc2" href="#" class="filmnavig pos2">Filmographie1 <br>voir2</label>
+            </div>
+            <div class="item">
+                <img id="doc3" class="contentminiature pos3" src="./lib/documentary3.jpg" alt="Documentaire3"/>
+                <label for="doc3" href="#" class="filmnavig pos3">Filmographie1 <br>voir2</label>
+            </div>
+            <div class="item">
+                <img id="doc4"class="contentminiature pos4" src="./lib/documentary4.jpg" alt="Documentaire4"/>
+                <label for="doc4" href="#" class="filmnavig pos4">Filmographie1<br> voir2</label>
+            </div>
+            <div class="item">
+                <img  id="documentaryflou" class="contentminiature pos5" src="./lib/documentary5.jpg" alt="Documentaire5"/>
+                <label for="documentaryflou" href="#" class="filmnavig pos5">Filmographie1 <br> voir2</label>
+            </div>}*
+        </div>
+
+    </div>
 </div>
 
 
-*{profils en play}*
-
-<div id="container">
 
 
-</div>
+#{barreFooter /}
 
 
-<div id="container2">
 
 
-</div>
 
-
-<div id="container3">
-
-
-</div>
 
 
 #{set 'moreScripts'}
     #{get 'moreScripts'/}
     #{script 'contenu.js'/}}
+#{/set}
+
+#{set 'moreStyles'}
+    #{get 'moreStyles'/}
+    #{stylesheet 'pagefrontbody.css'/}
 #{/set}

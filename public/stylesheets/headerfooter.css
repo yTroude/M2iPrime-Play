@@ -1,6 +1,11 @@
+
 .enTete {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 225px;
+
     background: #8B90F7;
     background-size: contain;
 }
@@ -9,25 +14,34 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex: 1 0 auto;
+
 }
 
 .M2iprime{
-    align-self: flex-start;
     display: flex;
     flex-direction: row;
+    align-self: flex-start;
+    width: 394.56px;
+    height: 76px;
+
 
 }
 
 .titreHead {
+    width: 394.56px;
+    height: 76px;
+
     font-family: Reem Kufi;
     font-style: normal;
     font-weight: normal;
     line-height: normal;
+    font-size: 64px;
+
     color: #000000;
 }
 
 .logoFront {
+
     width: 82px;
     height: 59px;
 }
@@ -35,8 +49,15 @@
 .naviga{
     display: flex;
     flex-direction: row;
-    width:  85%;
-    justify-content: space-between;
+    justify-content: space-evenly;
+
+    position: absolute;
+    width: 1035.36px;
+    height: 46px;
+    left: 36px;
+    top: 110px;
+
+
     font-family: Original Surfer;
     font-style: normal;
     font-weight: normal;
@@ -105,8 +126,10 @@
 
 .barrederecherche{
 
-    width: 85%;
+    width: 1081.44px;
     height: 47.89px;
+    left: 36px;
+    /*top: 159.11px;*/
 
     background: #D0C9EC;
     border: 1px solid #FFFFFF;
@@ -117,7 +140,7 @@
     width: 67.68px;
     height: 47.89px;
 
-
+    /*top: 159.11px;*/
 
     background: url("/public/images/search.png"), #ACCB55;
     background-size: contain;
@@ -129,11 +152,9 @@
 .rightcorner{
     display: flex;
     align-self: flex-end;
+    justify-content: flex-end;
     flex-direction: column;
-    align-items: center;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 250px;
+    text-align: center;
 
 }
 .userPicture{
@@ -142,7 +163,7 @@
     width: 121px;
     height: 83.94px;
 
-
+    /*top: 7px;*/
     background:#ACCB55;
 }
 .profile{
@@ -150,7 +171,7 @@
     width: 103.94px;
     height: 34.06px;
 
-    text-decoration:none;
+    /*top: 90.94px;*/
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
@@ -163,8 +184,8 @@
 .deconnexion{
 
 
+    /*top: 111px;*/
 
-    text-decoration:none;
     font-family: Russo One;
     font-style: normal;
     font-weight: normal;
@@ -206,7 +227,11 @@
     color: #532EE7;
 }
 
+.containernavigrecherche{
+    display: flex;
+    flex-direction: column;
 
+}
 
 
 
@@ -215,6 +240,7 @@
 .piedPage{
     display: flex;
     flex-direction: column;
+    /*justify-content: space-evenly;*/
 
     width: 100%;
     height: 64px;
@@ -247,7 +273,7 @@
 
     width: 145.44px;
     height: 64px;
-
+    /*left: 28.8px;*/
 
 
     text-decoration:none;
@@ -257,7 +283,7 @@
 
     width: 159.84px;
     height: 64px;
-
+   /* left: 434.88px;*/
 
     text-decoration:none;
     color: #000000;

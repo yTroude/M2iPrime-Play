@@ -1,0 +1,92 @@
+.frontnaviga{
+
+
+    font-family: K2D;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0.01em;
+
+    color: #000000;
+    text-decoration:none;
+
+
+}
+body {
+    background-image: url(/public/images/siegecinemarouge.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.list,
+.list-items,
+.item {
+    display: flex;
+
+}
+
+.list,
+.item {
+    flex-direction: column;
+}
+.list-items {
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.title{
+    background-color: #92B4E8;
+    text-align: center;
+    font-family: Permanent Marker;
+}
+.item{
+    background: #C4C4C4;
+    height: 300px;
+}
+
+.list,
+.list-items{
+    height: 370px;
+}
+
+.containermain{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 90%;
+
+}
+
+
+.contentminiature{
+
+    width: 230.11px;
+    height: 253.92px;
+    top: 20.93px;
+
+}
+
+#filmflou {
+    filter: blur(4px);
+
+}
+
+#serieflou {
+    filter: blur(4px);
+
+}
+
+#documentaryflou {
+    filter: blur(4px);
+
+}
+
+
+
+

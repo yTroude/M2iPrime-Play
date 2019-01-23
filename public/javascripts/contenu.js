@@ -6,12 +6,13 @@ $(document).ready(function(){
     }).then(response => response.json())
         .then(data=>{//data=profils
             var container = $('#container');
+            container.html('');
             for (var i=0;i<data.length;i++){
                 var listeFilms = document.createElement("img");
                 listeFilms.setAttribute("src", data[i].image);
-                listeFilms.setAttribute("width", "250");
-                listeFilms.setAttribute("height", "228");
-                listeFilms.setAttribute("hspace", "10px");
+                listeFilms.setAttribute("class", "contentminiature");
+                listeFilms.setAttribute("id", "film"+(i+1));
+
                 container.append(listeFilms)
             }
         })
@@ -29,9 +30,9 @@ $(document).ready(function() {
             for (var i = 0; i < data.length; i++) {
                 var listeSerie = document.createElement('img');
                 listeSerie.setAttribute("src", data[i].image);
-                listeSerie.setAttribute("width", "250");
-                listeSerie.setAttribute("height", "228");
-                listeSerie.setAttribute("hspace", "10px");
+                listeSerie.setAttribute("class", "contentminiature");
+
+
                 container2.append(listeSerie)
             }
         })
@@ -47,9 +48,9 @@ $(document).ready(function() {
             for (var i = 0; i < data.length; i++) {
                 var listeDocumentaires = document.createElement('img');
                 listeDocumentaires.setAttribute("src", data[i].image);
-                listeDocumentaires.setAttribute("width", "250");
-                listeDocumentaires.setAttribute("height", "228");
-                listeDocumentaires.setAttribute("hspace", "10px");
+                listeDocumentaires.setAttribute("class", "contentminiature");
+
+
                 container3.append(listeDocumentaires)
             }
         })
