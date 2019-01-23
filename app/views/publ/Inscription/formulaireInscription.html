@@ -1,13 +1,13 @@
 #{extends 'main.html'/}
 #{set title='Inscription'/}
-<img class="fond" src="https://fsa.zobj.net/crop.php?r=TYSk1r0tiD5WTP5aG57chy8eEmNDvIiGKxuBaSDTlOIXjqTYPoLV9ABcwxh-eWGukHnC68SGEVYJqI3NYNluqnGRs8gG3W5uNGWa1GgGYs-gQ_6IB3qFCgu2yHuIdQwTQ1eKW1K-dLlhrzxT" alt="Photo de fond M2iPrime"/>
+<img class="fondinscription" src="https://fsa.zobj.net/crop.php?r=TYSk1r0tiD5WTP5aG57chy8eEmNDvIiGKxuBaSDTlOIXjqTYPoLV9ABcwxh-eWGukHnC68SGEVYJqI3NYNluqnGRs8gG3W5uNGWa1GgGYs-gQ_6IB3qFCgu2yHuIdQwTQ1eKW1K-dLlhrzxT" alt="Photo de fond M2iPrime"/>
 
 
 *{Champs : mail password age }*
 
     <form id="myForm" class="carre" action="@{publ.Inscription.inscription()}" method="post">
-        <p class="logo"><img style="height: 100px" src="@{'/public/images/logo.png'}" alt="Photo de M2iPrime"></p>
-        <h2 class="titre">INSCRIPTION</h2>
+        <p class="logoinsciption"><img style="height: 100px" src="@{'/public/images/logo.png'}" alt="Photo de M2iPrime"></p>
+        <h2 class="titreinscription">INSCRIPTION</h2>
         <label class="ask" for="inputEmail">Adresse Email</label>
         <input id="inputEmail" name="inscriptionDto.email" value="${flash['inscriptionDto.email']}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Ton adresse e-mail ..." required>
         <small class="form-text text-muted error">#{error 'inscriptionDto.email'/}#{if flash.contains("UtilisateurExiste")}Cet email est déjà utilisé.#{/if}</small>
