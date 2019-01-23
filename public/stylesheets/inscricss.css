@@ -1,5 +1,5 @@
 
-.fond {
+.fondinscription {
     position: absolute;
     width:100%;
     height:100%;
@@ -7,14 +7,14 @@
 }
 
 
-.titre {
+.titreinscription {
     width: 100%;
     top: 2%;
     text-align: center;
     padding-bottom: 5px;
 }
 
-.logo {
+.logoinsciption {
     top: 2%;
     text-align: center;
     padding-bottom: 5px;

@@ -1,33 +1,27 @@
+
 //liste des films
-$(document).ready(function () {
-    fetch("http:/api/videos/film", {
-        method: 'GET'
+$(document).ready(function(){
+    fetch("http:/api/videos/film",{
+        method:'GET'
     }).then(response => response.json())
-        .then(data => {//data=profils
-            console.log(data);
+        .then(data=>{//data=profils
             var container = $('#container');
             for (var i = 0; i < data.length; i++) {
                 var listeFilms = $('<img>')
                     .attr("src", data[i].image)
-                    .attr("width", "250")
-                    .attr("height", "228")
-                    .attr("hspace", "10px")
+                    .attr("class", "contentminiature")
                     .attr('id', data[i].uuid)
                     .appendTo(container)
                     .click(function () {
                         detailModal(this.id)
                     });
-                //var uuid = data[i].uuid;
-                // listeFilms.click(function () {
-                //     detailModal(this.id)
-                // });
             }
         })
 });
 
 
 //liste des series
-$(document).ready(function () {
+$(document).ready(function() {
     fetch("http:/api/videos/serie", {
         method: 'GET'
     }).then(response => response.json())
@@ -37,15 +31,15 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 var listeSerie = document.createElement('img');
                 listeSerie.setAttribute("src", data[i].image);
-                listeSerie.setAttribute("width", "250");
-                listeSerie.setAttribute("height", "228");
-                listeSerie.setAttribute("hspace", "10px");
+                listeSerie.setAttribute("class", "contentminiature");
+
+
                 container2.append(listeSerie)
             }
         })
 })
 //liste des documentaires
-$(document).ready(function () {
+$(document).ready(function() {
     fetch("http:/api/videos/documentaire", {
         method: 'GET'
     }).then(response => response.json())
@@ -55,9 +49,8 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 var listeDocumentaires = document.createElement('img');
                 listeDocumentaires.setAttribute("src", data[i].image);
-                listeDocumentaires.setAttribute("width", "250");
-                listeDocumentaires.setAttribute("height", "228");
-                listeDocumentaires.setAttribute("hspace", "10px");
+                listeDocumentaires.setAttribute("class", "contentminiature");
+
                 container3.append(listeDocumentaires)
             }
         })
@@ -173,4 +166,3 @@ function plop(){
         })
 }
 */
-
