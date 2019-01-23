@@ -1,4 +1,5 @@
 #{extends 'main.html'/}
+
 <div>
     <h2>yo</h2><br>
 
@@ -31,6 +32,15 @@
 
 </div>
 
+
+<div id="theModal" class="w3-modal">
+    <div class="w3-modal-content">
+        <div id="modalContent" class="w3-container">
+            <span onclick="document.getElementById('theModal').style.display='none',location.reload()" class="w3-button w3-display-topright">&times;</span>
+        </div>
+    </div>
+</div>
+</div>
 
 #{set 'moreScripts'}
     #{get 'moreScripts'/}

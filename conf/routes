@@ -31,7 +31,7 @@ POST    /inscription/fin                        auth.Inscription.finirInscriptio
 
 #Contenu
 
-GET     /contenu                                ContenuController.mainPage
+GET     /contenu                                ContenuController.testContenu
 
 #API
 

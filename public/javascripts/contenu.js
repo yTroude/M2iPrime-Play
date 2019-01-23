@@ -1,25 +1,33 @@
-
 //liste des films
-$(document).ready(function(){
-    fetch("http:/api/videos/film",{
-        method:'GET'
+$(document).ready(function () {
+    fetch("http:/api/videos/film", {
+        method: 'GET'
     }).then(response => response.json())
-        .then(data=>{//data=profils
+        .then(data => {//data=profils
+            console.log(data);
             var container = $('#container');
-            for (var i=0;i<data.length;i++){
-                var listeFilms = document.createElement("img");
-                listeFilms.setAttribute("src", data[i].image);
-                listeFilms.setAttribute("width", "250");
-                listeFilms.setAttribute("height", "228");
-                listeFilms.setAttribute("hspace", "10px");
-                container.append(listeFilms)
+            for (var i = 0; i < data.length; i++) {
+                var listeFilms = $('<img>')
+                    .attr("src", data[i].image)
+                    .attr("width", "250")
+                    .attr("height", "228")
+                    .attr("hspace", "10px")
+                    .attr('id', data[i].uuid)
+                    .appendTo(container)
+                    .click(function () {
+                        detailModal(this.id)
+                    });
+                //var uuid = data[i].uuid;
+                // listeFilms.click(function () {
+                //     detailModal(this.id)
+                // });
             }
         })
 });
 
 
 //liste des series
-$(document).ready(function() {
+$(document).ready(function () {
     fetch("http:/api/videos/serie", {
         method: 'GET'
     }).then(response => response.json())
@@ -37,7 +45,7 @@ $(document).ready(function() {
         })
 })
 //liste des documentaires
-$(document).ready(function() {
+$(document).ready(function () {
     fetch("http:/api/videos/documentaire", {
         method: 'GET'
     }).then(response => response.json())
@@ -54,6 +62,30 @@ $(document).ready(function() {
             }
         })
 })
+
+function detailModal(uuid) {
+    fetch("http:/api/videos/details/" + uuid, {
+        method: 'GET'
+    }).then(response => response.json())
+        .then(data => {
+            var theModal = $('#theModal');
+
+
+
+            var contenu = data.titre + "<br>" + data.desc + "<br>"+data.format + "<br>" + data.categorie ;
+
+
+
+            $('<p>').html(contenu)
+                .appendTo('#modalContent');
+            for(var i=0;i<data.acteurs.length; i++ ){console.log(data.acteurs[i]);
+                $('<p>').html( data.acteurs[i].nomActeur + " " + data.acteurs[i].prenomActeur).appendTo('#modalContent');
+            }
+            theModal.css('display', 'block')
+
+        });
+}
+
 
 /*
 function allVideos(){
@@ -141,3 +173,4 @@ function plop(){
         })
 }
 */
+

@@ -67,6 +67,14 @@ Video(fast-and-furious-4):
   image: https://images-na.ssl-images-amazon.com/images/I/41GgDpsO9cL.jpg
   acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
 
+Video(fast-and-furious-5):
+  titre: fast and furious 5
+  desc: cars, crime and more
+  categorie: action
+  format: film
+  image: https://is5-ssl.mzstatic.com/image/thumb/Music/17/1d/7c/mzi.ucahkdiz.jpg/268x0w.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
 Video(The Big bang theory):
   titre: The Big bang theory
   desc: cars, crime and more
@@ -101,6 +109,14 @@ Video(the good doctor):
   image: https://i.ytimg.com/sh/UWe8kS6TWBZ9mUFDOi76BQ/market.jpg
   acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
 
+Video(the walking dead):
+    titre: the walking dead
+    desc: cars, crime and more
+    categorie: drame
+    format: serie
+    image: https://www.ecranlarge.com/uploads/image/001/014/the-walking-dead-saison-8-photo-1014643.jpg
+    acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
 Video(wild animals):
   titre: wild animals
   desc: cars, crime and more
@@ -133,4 +149,12 @@ Video(l'espace):
   categorie: science
   format: documentaire
   image: https://www.espritsciencemetaphysiques.com/wp-content/uploads/2015/02/e51910d394f92961feb251aac443bb39-l1.jpg
+  acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
+
+Video(medecins):
+  titre: medecins
+  desc: cars, crime and more
+  categorie: medecine
+  format: documentaire
+  image: https://www.contribuables.org/wp-content/uploads/2018/01/medecin_fou.jpg
   acteurs: [Vin-Diesel, Paul-Walker, Benjamin-Maillet]
