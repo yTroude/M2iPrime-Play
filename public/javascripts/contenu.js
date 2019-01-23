@@ -71,16 +71,16 @@ function detailModal(uuid) {
             var theModal = $('#theModal');
 
 
-
-            var contenu = data.titre + "<br>" + data.desc + "<br>"+data.format + "<br>" + data.categorie ;
-
+            var contenu = data.titre + "<br>" + data.desc + "<br>" + data.format + "<br>" + data.categorie;
 
 
-            $('<p>').html(contenu)
-                .appendTo('#modalContent');
-            for(var i=0;i<data.acteurs.length; i++ ){console.log(data.acteurs[i]);
-                $('<p>').html( data.acteurs[i].nomActeur + " " + data.acteurs[i].prenomActeur).appendTo('#modalContent');
+            $('#videoDesc').html(contenu);
+            var contenuListe = '';
+            for (var i = 0; i < data.acteurs.length; i++) {
+                // $('<li>').text(data.acteurs[i].nomActeur + " " + data.acteurs[i].prenomActeur).appendTo('#videoListeActeurs');
+                contenuListe+="<li>"+data.acteurs[i].nomActeur + " " + data.acteurs[i].prenomActeur+"</li>";
             }
+            $('#videoListeActeurs').html(contenuListe);
             theModal.css('display', 'block')
 
         });
