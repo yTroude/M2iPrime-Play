@@ -9,7 +9,7 @@
     #{else}
     #{/else}
 
-    <form id="myForm" class="col" action="@{auth.AccountController.deleteAccount()}" method="post">
+    <form id="myForm" class="col" action="@{auth.AccountController.deleteAccount}" method="post">
         <h5 class="titre">Supprimer le compte</h5>
 
         #{if flash.get("WrongPasswordException").equals("true")}

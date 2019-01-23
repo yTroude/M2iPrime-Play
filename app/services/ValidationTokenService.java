@@ -16,4 +16,14 @@ public class ValidationTokenService {
         validationToken.dateCreation = Date.from(Instant.now());
         return validationToken;
     }
+
+    public static void deleteValidationToken(String validationTokenUuid) {
+        Logger.debug("%s deleteValidationToken", LOG_PREFIX);
+//        ValidationToken validationToken = ValidationToken.findById(validationTokenUuid);
+//        validationToken.delete();
+        doInTransaction(session -> {
+            Post post = (Post) session.get(Post.class, 1L);
+            post.removeDetails();
+        });
+    }
 }

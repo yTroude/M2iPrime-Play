@@ -6,6 +6,7 @@ import models.Utilisateur;
 import models.dto.InscriptionDto;
 import play.data.validation.Valid;
 import services.UtilisateursService;
+import services.ValidationTokenService;
 
 public class Inscription extends TrackerController {
 

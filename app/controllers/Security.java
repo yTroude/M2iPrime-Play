@@ -2,9 +2,11 @@ package controllers;
 
 import controllers.auth.Auth;
 import models.Utilisateur;
+import models.ValidationToken;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
 import services.UtilisateursService;
+import services.ValidationTokenService;
 
 import static util.ValidationStatus.MAIL_SENT;
 
@@ -22,6 +24,19 @@ public class Security extends Secure.Security {
                 return true;
             }
         }
+//        if (utilisateur.validationToken.uuid != null){
+//            System.out.println(utilisateur.validationToken);
+//            String validationTokenUuid = utilisateur.validationToken.uuid;
+//            utilisateur.validationToken = null;
+//            utilisateur.save();
+//            ValidationTokenService.deleteValidationToken(validationTokenUuid);
+//        }
+//        public void removeDetails(PostDetails details) {
+//            if (details != null) {
+//                details.setPost(null);
+//            }
+//            this.details = null;
+//        }
         Logger.debug("%s authenticate, failed to authenticate, return false", LOG_PREFIX);
         return false;
     }

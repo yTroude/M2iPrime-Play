@@ -12,11 +12,11 @@ import javax.validation.Valid;
 
 public class AccountController extends TrackerController {
 
-    public void gestionCompte(){
+    public static void gestionCompte(){
         render();
     }
 
-    public void deleteAccount(@Valid DeleteAccountDto deleteAccountDto){
+    public static void deleteAccount(@Valid DeleteAccountDto deleteAccountDto){
         if(validation.hasErrors()){
             params.flash();
             validation.keep();
@@ -34,6 +34,7 @@ public class AccountController extends TrackerController {
             flash.put("BadUtilisateurException", "true");
             gestionCompte();
         }
+        System.out.println("AccountController deleteAccount render");
         render();
     }
 }

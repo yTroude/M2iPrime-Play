@@ -147,20 +147,32 @@ public class UtilisateursService {
         Logger.debug("%s deleteAccount : [%s]", LOG_PREFIX, deleteAccountDto.email);
         Utilisateur utilisateur = getByEmail(deleteAccountDto.email);
         if (utilisateur.email == null){
-            System.out.printf("BadUtilisateurException");
             throw new BadUtilisateurException();
         }
+        System.out.println(utilisateur.email);
         if (!deleteAccountDto.password.equals(deleteAccountDto.passwordConfirmation)){
-            System.out.printf("PasswordConfirmationException");
             throw new PasswordConfirmationException();
         }
-        if (!deleteAccountDto.password.equals(utilisateur.password)){
-            System.out.println(deleteAccountDto.password);
-            System.out.println(utilisateur.password);
-            System.out.printf("WrongPasswordException");
+        if (BCrypt.checkpw(deleteAccountDto.password, utilisateur.password)){
+//            Utilisateur user = getByEmail("valide@mail.com");
+//            user.delete();
+            ValidationTokenService.deleteValidationToken(utilisateur.validationToken.uuid);
+            utilisateur.delete();
+        }
+        else {
             throw new WrongPasswordException();
         }
-        System.out.println("deleting " + utilisateur.email);
-        utilisateur.delete();
+//        System.out.println(deleteAccountDto.password);
+//        deleteAccountDto.password = BCrypt.hashpw(deleteAccountDto.password, BCrypt.gensalt());
+//        System.out.println(deleteAccountDto.password);
+//        System.out.println(utilisateur.password);
+//        if (!deleteAccountDto.password.equals(utilisateur.password)){
+//            throw new WrongPasswordException();
+//        }
+//        utilisateur.delete();
+    }
+
+    public void removeValidationToken(){
+
     }
 }

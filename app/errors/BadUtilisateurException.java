@@ -1,4 +1,4 @@
 package errors;
 
-public class BadUtilisateurException extends Throwable {
+public class BadUtilisateurException extends Exception {
 }
