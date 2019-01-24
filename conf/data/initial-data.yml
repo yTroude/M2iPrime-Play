@@ -1,7 +1,6 @@
 #Utilisateur totalement inscrit
 Utilisateur(megabob):
   email: inscrit@mail.com
-  pseudo: inscrit
   dateNaissance: 1999-01-01 00:00:00
   validationStatus: VALID_AND_CONNECTED_ONCE
 Profil(megabob-profil):
