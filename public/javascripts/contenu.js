@@ -29,12 +29,14 @@ $(document).ready(function() {
             var container2 = $('#container2');
             container2.html('');
             for (var i = 0; i < data.length; i++) {
-                var listeSerie = document.createElement('img');
-                listeSerie.setAttribute("src", data[i].image);
-                listeSerie.setAttribute("class", "contentminiature");
-
-
-                container2.append(listeSerie)
+                var listeFilms = $('<img>')
+                    .attr("src", data[i].image)
+                    .attr("class", "contentminiature")
+                    .attr('id', data[i].uuid)
+                    .appendTo(container2)
+                    .click(function () {
+                        detailModal(this.id)
+                    });
             }
         })
 })
@@ -47,11 +49,14 @@ $(document).ready(function() {
             var container3 = $('#container3');
             container3.html('');
             for (var i = 0; i < data.length; i++) {
-                var listeDocumentaires = document.createElement('img');
-                listeDocumentaires.setAttribute("src", data[i].image);
-                listeDocumentaires.setAttribute("class", "contentminiature");
-
-                container3.append(listeDocumentaires)
+                var listeFilms = $('<img>')
+                    .attr("src", data[i].image)
+                    .attr("class", "contentminiature")
+                    .attr('id', data[i].uuid)
+                    .appendTo(container3)
+                    .click(function () {
+                        detailModal(this.id)
+                    });
             }
         })
 })

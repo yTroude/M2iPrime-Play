@@ -51,7 +51,7 @@ public class VideoService {
         return videos;
     }
 
-    public static void addActeurToVideo(String uuidActeur, String uuidVideo){
+    public static void addActeurToVideo(String uuidVideo, String uuidActeur){
         Logger.debug("%s addActeurToVideo : [%s, %s ]", LOG_PREFIX, uuidActeur, uuidVideo);
         Video video = getVideoByUuid(uuidVideo);
 
